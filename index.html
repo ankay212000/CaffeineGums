@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive Caffeine Insights: Gum & Sources</title>
+    <title>Refined Caffeine Insights: Gum & Sources</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Earthy Browns, Warm Neutrals, and Subtle Greens/Oranges -->
-    <!-- Application Structure Plan: This SPA integrates two distinct reports into a unified, scrollable experience. It begins with a combined hero section, followed by a main navigation linking to different content areas.
-        1. **Caffeine Gum Manufacturing Guide:** This section (Formulation, Manufacturing Process, Compliance) adopts a sequential "how-to" structure with tabs for formulation details and a clickable timeline for the process. This guides the user through the production steps of caffeine gum.
-        2. **Organic Caffeine Source Explorer:** This section (Source Explorer, Quantitative Charts, Detailed Comparison, Procurement Checklist) uses a dashboard-like approach with interactive cards, filters, and charts for comparative analysis. This allows users to explore different caffeine sources.
-        The overall structure is linear by topic area, but each major topic provides internal interactive elements, enabling deep dives without leaving the page. This design prioritizes user understanding and ease of navigation for both sets of complex information.
+    <!-- Application Structure Plan: This SPA integrates two distinct reports into a unified, scrollable experience, separated into two main thematic sections.
+        1. **The Science of Caffeine Gums:** This section covers the "Overview & Market Potential" (new), "Advantages" (new), "Formulation Explorer" (enhanced with more detail and a table), "Manufacturing Process" (enhanced), "Formulation Challenges: Taste Masking & Controlled Release" (new), and "Regulatory & Safety Checklist" (enhanced). This section is designed as a guided, sequential "how-to" guide, moving from concept to production.
+        2. **Organic Dehydrated Caffeine Sources in India:** This section (separated by a horizontal rule) includes an "Introduction to Organic Caffeine" (new), "Source Explorer" (enhanced cards), "Quantitative Comparison Charts," "Detailed Side-by-Side Comparison Table" (significantly enhanced with health benefits, side effects, dosages), and "Procurement Checklist." This section functions as a comparative dashboard for source selection.
+        The overall structure is linear by major topic, but each topic provides internal interactive elements (tabs, timelines, filters) enabling deep dives. This design prioritizes comprehensive user understanding and intuitive navigation for both sets of complex information.
     -->
     <!-- Visualization & Content Choices:
-        - Report 1 (Gum): Core gum components. Goal: Organize/Inform. Viz/Method: Tabbed interface (HTML/CSS/JS). Interaction: Clicking tabs reveals content. Justification: Breaks down complex info.
-        - Report 1 (Gum): Typical formulation percentages. Goal: Inform/Compare. Viz/Method: Donut Chart (Chart.js/Canvas). Interaction: Hover tooltips. Justification: Visual breakdown of composition.
-        - Report 1 (Gum): Industrial manufacturing steps. Goal: Organize/Change. Viz/Method: Horizontal, icon-based timeline (HTML/CSS/JS). Interaction: Clicking highlights step and shows details. Justification: Engaging, easy-to-follow process flow.
-        - Report 1 (Gum): Regulatory compliance points. Goal: Inform. Viz/Method: Styled checklist with icons (HTML/CSS/Unicode). Interaction: None. Justification: Scannable regulatory info.
-
-        - Report 2 (Sources): Comparing caffeine sources. Goal: Compare. Viz/Method: Card-based layout with filters (HTML/CSS/JS). Interaction: Toggles highlight relevant data. Justification: Breaks down comparison into manageable units.
-        - Report 2 (Sources): Caffeine Concentration & Price. Goal: Compare. Viz/Method: Bar charts (Chart.js/Canvas). Interaction: Hover tooltips. Justification: Ideal for direct quantitative comparison.
-        - Report 2 (Sources): Detailed attributes. Goal: Organize/Compare. Viz/Method: Structured HTML table (HTML/CSS). Interaction: None. Justification: Information-dense summary for detailed analysis.
-        - Report 2 (Sources): Procurement Recommendations. Goal: Inform. Viz/Method: Icon-based checklist (HTML/CSS/Unicode). Interaction: None. Justification: Enhances scannability and memorability.
+        - New: Overview & Market Potential, Advantages, Introduction to Organic Caffeine: Goal: Inform. Viz/Method: Text blocks, key bullet points (HTML/CSS). Justification: Provide essential context and highlight unique benefits/characteristics.
+        - Enhanced: Interactive Gum Formulation Explorer: Goal: Inform/Organize. Viz/Method: Tabbed interface for detailed component descriptions, new HTML table for precise percentages and functions. Donut Chart for visual overview. Interaction: Tab clicks. Justification: Provides both high-level and granular formulation details.
+        - New: Formulation Challenges (Taste Masking & Controlled Release): Goal: Inform. Viz/Method: Structured text sections with clear headings and bullet points (HTML/CSS). Justification: Addresses critical technical aspects of gum manufacturing.
+        - Enhanced: Regulatory & Safety Checklist for Gum: Goal: Inform. Viz/Method: Expanded checklist (HTML/CSS/Unicode). Justification: Comprehensive coverage of FSSAI and safety.
+        - Enhanced: Organic Caffeine Source Explorer: Goal: Inform/Compare. Viz/Method: Cards with expanded content for purity, efficacy, and market (HTML/CSS/JS). Interaction: Filters to highlight aspects. Justification: Richer comparative insights.
+        - Enhanced: Detailed Side-by-Side Comparison (Organic Sources): Goal: Organize/Compare. Viz/Method: Significantly expanded HTML table with new attributes (health benefits, side effects, dosages, suppliers) from source document tables. Justification: Provides a single, comprehensive reference for source selection.
+        - Existing: Manufacturing Process: Goal: Organize/Change. Viz/Method: Horizontal, icon-based timeline (HTML/CSS/JS). Interaction: Clicking highlights step and shows details. Justification: Engaging, easy-to-follow process flow.
+        - Existing: Quantitative Comparison Charts: Goal: Compare. Viz/Method: Bar charts (Chart.js/Canvas). Interaction: Hover tooltips. Justification: Ideal for direct quantitative comparison.
+        - Existing: Procurement Checklist: Goal: Inform. Viz/Method: Icon-based checklist (HTML/CSS/Unicode). Interaction: None. Justification: Enhances scannability and memorability.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FBF9F6; /* Slightly warmer neutral from Gum report */
+            background-color: #FBF9F6; /* Slightly warmer neutral */
             color: #4A4A4A;
         }
         .chart-container {
@@ -47,7 +47,6 @@
                 height: 400px;
             }
         }
-        /* Styles from Gum report */
         .nav-button.active {
             background-color: #A0522D; /* Main accent for active states */
             color: #FFFFFF;
@@ -72,7 +71,6 @@
         .process-step.active .step-icon {
             transform: rotate(15deg);
         }
-        /* Styles from Organic Caffeine report */
         .nav-button-organic { /* Specific class for organic caffeine filters to distinguish */
             transition: all 0.3s ease;
         }
@@ -91,7 +89,6 @@
             background-color: #F0EAD6; /* Light yellow-brown accent */
             border-color: #DAA520; /* Gold accent */
         }
-        /* Common section titles */
         .section-title {
             font-size: 1.875rem;
             font-weight: 700;
@@ -115,12 +112,12 @@
             <h1 class="text-xl md:text-2xl font-bold text-[#8B4513]">Caffeine Insights Hub</h1>
             <nav class="hidden md:flex space-x-4">
                 <a href="#hero-main" class="text-gray-600 hover:text-[#8B4513] font-semibold">Home</a>
-                <a href="#formulation" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Formulation</a>
+                <a href="#gum-overview" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Intro</a>
+                <a href="#formulation" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Formula</a>
                 <a href="#manufacturing" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Process</a>
+                <a href="#taste-release" class="text-gray-600 hover:text-[#8B4513] font-semibold">Taste & Release</a>
                 <a href="#explorer-organic" class="text-gray-600 hover:text-[#8B4513] font-semibold">Caffeine Sources</a>
-                <a href="#charts-organic" class="text-gray-600 hover:text-[#8B4513] font-semibold">Source Charts</a>
-                <a href="#compliance-gum" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Compliance</a>
-                <a href="#recommendations-organic" class="text-gray-600 hover:text-[#8B4513] font-semibold">Source Checklist</a>
+                <a href="#compliance-gum" class="text-gray-600 hover:text-[#8B4513] font-semibold">Compliance</a>
             </nav>
         </div>
     </header>
@@ -135,12 +132,39 @@
         </section>
 
         <!-- START: Caffeine Gum Manufacturing Guide Sections -->
+        <section id="gum-overview" class="mb-12 md:mb-20">
+            <h3 class="section-title">Overview & Market Potential of Caffeine Gums</h3>
+            <p class="section-subtitle">
+                Caffeine chewing gum is a rapidly evolving segment offering a discreet and portable alternative to traditional caffeine sources. Discover its unique advantages, including rapid absorption and reduced gastrointestinal discomfort.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+                <h4 class="font-bold text-xl mb-3 text-[#A0522D]">Key Advantages of Chewing Gum Delivery:</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4">
+                    <li>**Convenience and Discretion:** Consume anywhere, anytime, without water or preparation.</li>
+                    <li>**Rapid Onset of Action:** Caffeine absorbed through the buccal mucosa acts significantly faster (5-10 minutes vs. 45-60 minutes for capsules), bypassing liver metabolism.</li>
+                    <li>**Reduced Gastrointestinal Side Effects:** Minimizes exposure to stomach, potentially reducing discomfort.</li>
+                    <li>**Controlled Release Potential:** Formulations allow for rapid burst or sustained, prolonged effects.</li>
+                    <li>**Effective Taste Masking:** Gum matrix provides excellent masking for bitter caffeine.</li>
+                    <li>**Enhanced Stability:** Solid, low-moisture matrix protects active ingredients, extending shelf life.</li>
+                </ul>
+            </div>
+             <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h4 class="font-bold text-xl mb-3 text-[#A0522D]">Benefits of Dehydrated Caffeine Forms (General):</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4">
+                    <li>**Concentration and Potency:** Higher active compound concentrations allow for smaller serving sizes.</li>
+                    <li>**Versatility in Application:** Easily incorporated into capsules, tablets, powders, gels, and beverages.</li>
+                    <li>**Enhanced Stability and Shelf Life:** Superior stability compared to raw or liquid forms, preserving efficacy.</li>
+                    <li>**Precision Dosing:** Concentrated nature enables accurate and consistent dosing for controlled physiological effects.</li>
+                </ul>
+            </div>
+        </section>
+
         <section id="formulation" class="mb-12 md:mb-20">
             <h3 class="section-title">Interactive Gum Formulation Explorer</h3>
             <p class="section-subtitle">
                 The foundation of any chewing gum is its precise blend of ingredients. This section breaks down the core components, their functions, and how they interact to create the final product. Click on the tabs to explore each category and see how they contribute to the overall formulation.
             </p>
-            <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <div class="mb-6 border-b border-gray-200">
                         <nav id="formulation-tabs" class="flex flex-wrap -mb-px" aria-label="Tabs">
@@ -153,26 +177,42 @@
                     <div id="tab-contents">
                         <div id="gum-base-content" class="tab-content">
                             <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Gum Base (25-35%)</h4>
-                            <p class="text-gray-700">The non-digestible, chewable core that provides elasticity and texture. It's a complex blend of elastomers, resins, waxes, and fillers. The properties of the gum base are critical as they directly influence the release rate of caffeine and other active ingredients.</p>
+                            <p class="text-gray-700">The non-digestible, chewable core that provides elasticity and texture. It's a complex blend of elastomers (natural/synthetic rubbers like butadiene-styrene, polyisobutylene, butyl rubber), resins (glycerol esters, terpene resins, polyvinyl acetate), waxes (paraffin, microcrystalline), fats (hydrogenated vegetable oils), emulsifiers (lecithin, glycerol monostearate), and fillers (calcium carbonate, talc, max 2%). Critical for caffeine release rate.</p>
                         </div>
                         <div id="sweeteners-content" class="tab-content">
                             <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Sweeteners (40-50%)</h4>
-                            <p class="text-gray-700">Essential for palatability and masking caffeine's bitterness. This includes bulk sweeteners (like sorbitol, xylitol) for initial taste and mass, and high-intensity sweeteners (like sucralose) for prolonged sweetness. Encapsulation is often used for controlled release.</p>
+                            <p class="text-gray-700">Essential for palatability and masking caffeine's bitterness. **Bulk Sweeteners** (40-50%): sucrose, dextrose, glucose/corn syrup, xylitol, sorbitol, maltitol, mannitol. Provide initial sweetness and bulk. **High-Intensity Sweeteners** (0.05-0.5%): aspartame, acesulfame-K, saccharin, sucralose. Crucial for prolonged sweetness, often encapsulated for controlled release. Sugar-free gums rely on artificial sweeteners for reduced calories and dental benefits.</p>
                         </div>
                         <div id="caffeine-gum-content" class="tab-content">
                             <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Caffeine (0.3-3.7%)</h4>
-                            <p class="text-gray-700">The active stimulant. Sourced from natural extracts (Green Tea, Guarana) or synthetically. It is often encapsulated or specially treated to mask its bitter taste and to control its release, providing either a quick boost or a sustained effect.</p>
+                            <p class="text-gray-700">The active stimulant, sourced naturally (Green Tea, Guarana) or synthetically. Typical concentration 0.3-3.7% (often 1.8%), with individual pieces containing 5-100mg (common 40-50mg). Encapsulation or special treatment is vital to mask bitterness and control release (quick boost or sustained effect). When co-formulating with L-theanine (to mitigate jitters), a 1:1 to 1:2 caffeine:L-theanine ratio (e.g., 40mg caffeine to 60mg L-theanine) is common.</p>
                         </div>
                          <div id="others-gum-content" class="tab-content">
                             <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Softeners, Flavors & Colors (~5%)</h4>
-                            <p class="text-gray-700">These components fine-tune the sensory experience. Softeners (like glycerin) ensure flexibility. Flavors provide the desired taste profile and help mask bitterness. Colors enhance visual appeal. Their interaction is key to consumer acceptance.</p>
+                            <p class="text-gray-700">**Softeners/Plasticizers** (1-2%): Glycerin, lecithin, hydrogenated vegetable oils, stearic acid; improve flexibility, chewability, prevent brittleness, maintain moisture. **Emulsifiers:** Aid uniform dispersion of ingredients. **Flavoring Agents** (1.5-3.0%): Provide taste/aroma (peppermint, spearmint, fruit, food acids like citric); can be liquid, powder, or micro-encapsulated. Oil-soluble flavors offer longer-lasting impact. **Colors:** Enhance visual appeal. **Polyol Coating:** For pellet gums, provides crunch and maintains quality.</p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="text-xl font-bold text-center mb-4 text-[#A0522D]">Typical Formulation Breakdown</h4>
-                    <div class="chart-container">
-                        <canvas id="formulationChart"></canvas>
+                <div class="flex flex-col gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h4 class="text-xl font-bold text-center mb-4 text-[#A0522D]">Typical Formulation Breakdown</h4>
+                        <div class="chart-container h-64 md:h-72">
+                            <canvas id="formulationChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg overflow-x-auto">
+                        <h4 class="text-xl font-bold text-center mb-4 text-[#A0522D]">Formulation Percentages by Weight</h4>
+                        <table class="w-full text-sm text-left text-gray-600">
+                            <thead class="text-xs text-white uppercase bg-[#A0522D]">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Component</th>
+                                    <th scope="col" class="px-6 py-3">Typical Range (by weight %)</th>
+                                    <th scope="col" class="px-6 py-3">Functionality</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gum-formulation-table-body">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -210,39 +250,32 @@
             </div>
         </section>
 
-        <section id="compliance-gum" class="mb-12 md:mb-20">
-            <h3 class="section-title">Regulatory & Safety Checklist for Gum</h3>
+        <section id="taste-release" class="mb-12 md:mb-20">
+            <h3 class="section-title">Formulation Challenges: Taste Masking & Controlled Release</h3>
             <p class="section-subtitle">
-                Bringing a functional food product to market requires strict adherence to safety and regulatory standards. This checklist highlights the key compliance points from the report, covering FSSAI regulations in India, labeling laws, and essential safety testing.
+                Caffeine's bitterness and the need for diverse energy profiles present significant formulation challenges. Explore the sophisticated techniques used to ensure palatability and controlled release.
             </p>
-            <div class="max-w-4xl mx-auto space-y-4">
-                <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
-                    <div class="text-2xl pt-1">📋</div>
-                    <div>
-                        <h4 class="font-bold text-lg text-[#8B4513]">Compositional Standards (FSSAI)</h4>
-                        <p class="text-gray-700">Ensure the product meets specific limits for gum content, moisture, ash, and sugar content as defined by FSSAI regulations for chewing gum.</p>
-                    </div>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="font-bold text-xl mb-3 text-[#A0522D]">Taste Masking Techniques:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4">
+                        <li>**Encapsulation/Microencapsulation:** Enclosing caffeine in polymeric coatings (shellac, Zein, wax, HPMC) to physically separate it from taste buds, control release, and protect. Spray drying is common.</li>
+                        <li>**Agglomeration:** Partially coating caffeine particles by mixing with agglomerating agents and solvents.</li>
+                        <li>**Absorption/Fixation:** Spraying caffeine solution onto absorbent materials like silica, clay, or cellulose.</li>
+                        <li>**Co-encapsulation with High-Intensity Sweeteners:** Blending and encapsulating caffeine directly with sweeteners (aspartame, sucralose) for synergistic bitterness reduction.</li>
+                        <li>**Combination with Bitterness Inhibitors:** Incorporating inhibitors (sodium gluconate, sodium ascorbate) with caffeine prior to encapsulation.</li>
+                        <li>**Inclusion in Dusting/Rolling Compound:** Adding caffeine to the outer dusting powder for fast release and bitterness reduction.</li>
+                        <li>**Inclusion in Coating/Panning:** Dispersing caffeine in sugar solutions for coated gums, isolating it from the matrix and modifying release.</li>
+                    </ul>
                 </div>
-                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
-                    <div class="text-2xl pt-1">🔬</div>
-                    <div>
-                        <h4 class="font-bold text-lg text-[#8B4513]">Caffeine Dosage & Limits</h4>
-                        <p class="text-gray-700">Carefully calibrate caffeine per piece (e.g., 40-100mg) to be effective yet safe, referencing FSSAI limits for caffeinated products and food supplements (e.g., max 300mg/day).</p>
-                    </div>
-                </div>
-                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
-                    <div class="text-2xl pt-1">🏷️</div>
-                    <div>
-                        <h4 class="font-bold text-lg text-[#8B4513]">Accurate Labeling & Claims</h4>
-                        <p class="text-gray-700">All functional claims must be scientifically substantiated. Labels must clearly state ingredient amounts, recommended daily limits, and include warnings for vulnerable groups (children, pregnant women).</p>
-                    </div>
-                </div>
-                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
-                    <div class="text-2xl pt-1">🛡️</div>
-                    <div>
-                        <h4 class="font-bold text-lg text-[#8B4513]">Safety & Stability Testing</h4>
-                        <p class="text-gray-700">Conduct mandatory microbiological safety testing and stability tests to ensure nutrient potency is maintained throughout the product's entire shelf life.</p>
-                    </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="font-bold text-xl mb-3 text-[#A0522D]">Controlled Release Mechanisms:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4">
+                        <li>**Fast Release:** Encapsulation with highly water-soluble substrates for rapid onset of effects upon chewing.</li>
+                        <li>**Delayed/Sustained Release:** Encapsulation with compositions of high organic solubility/low water solubility, or increasing coating material. This ensures a slow, even release over a longer period, aiding blend with long-lasting flavors and reducing bitterness perception.</li>
+                    </ul>
+                     <h4 class="font-bold text-xl mb-3 mt-6 text-[#A0522D]">Target Caffeine Dosage:</h4>
+                    <p class="text-gray-700">Caffeine content typically ranges from **0.3% to 3.7%** by weight, with a preferred concentration around **1.8%**. Individual pieces commonly target **40-50 mg** caffeine, ranging from **5 mg to 100 mg**.</p>
                 </div>
             </div>
         </section>
@@ -291,7 +324,7 @@
         <section id="comparison-organic" class="mb-12 md:mb-20">
             <h3 class="section-title">Detailed Side-by-Side Comparison (Organic Sources)</h3>
              <p class="section-subtitle">
-                For those who need all the details, this table offers a comprehensive, side-by-side breakdown of each caffeine source across the most critical attributes, from extraction methods to key suppliers.
+                For those who need all the details, this table offers a comprehensive, side-by-side breakdown of each caffeine source across the most critical attributes, from extraction methods to health benefits and potential side effects.
             </p>
             <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
                 <table class="w-full text-sm text-left text-gray-600">
@@ -343,12 +376,56 @@
         </section>
         <!-- END: Organic Caffeine in India Sections -->
 
+        <section id="compliance-gum" class="mb-12 md:mb-20">
+            <h3 class="section-title">Regulatory & Safety Checklist for Gum</h3>
+            <p class="section-subtitle">
+                Bringing a functional food product to market requires strict adherence to safety and regulatory standards. This checklist highlights the key compliance points from the report, covering FSSAI regulations in India, labeling laws, and essential safety testing.
+            </p>
+            <div class="max-w-4xl mx-auto space-y-4">
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">📋</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">FSSAI Compositional Standards for Chewing Gum</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1 pl-4">
+                            <li>Gum Content: Not less than 12.5% (chewing), 14.0% (bubble).</li>
+                            <li>Moisture Content: Not more than 3.5%.</li>
+                            <li>Sulphated Ash: Not more than 9.5% (chewing), 11.5% (bubble).</li>
+                            <li>Acid Insoluble Ash: Not more than 2.0% (chewing), 3.5% (bubble).</li>
+                            <li>Reducing Sugars: Not less than 4.5% (chewing), 5.5% (bubble).</li>
+                            <li>Sucrose Content: Not exceeding 70.0% (chewing), 60.0% (bubble).</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">🔬</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">Caffeine Dosage & Limits (FSSAI Guidance)</h4>
+                        <p class="text-gray-700">Gum caffeine concentration: typically **0.3-3.7%** (preferred **1.8%**), delivering **5-100mg** per piece (**40-50mg** common). FSSAI for caffeinated beverages: **145-300 mg/L**. Food supplements: max **300mg per day per serving**, general upper limit **300 mg/day for adolescents**. Exceeding limits can cause adverse health effects. Calibrate dosage carefully, considering single-piece and cumulative daily intake.</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">🏷️</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">Accurate Labeling, Claims & Warnings</h4>
+                        <p class="text-gray-700">Must display FSSAI logo/license, date, storage. Detailed ingredients list mandatory. Functional claims require scientific substantiation. Products must declare category (e.g., "HEALTH SUPPLEMENT"), exact mg of active ingredients, max recommended daily limit, and clear warnings for children, pregnant/lactating women, and caffeine-sensitive individuals. FSSAI license number, batch ID, MRP, expiry date are mandatory.</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">🛡️</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">Packaging, Safety & Stability Testing</h4>
+                        <p class="text-gray-700">Packaging materials must conform to Indian standards (e.g., IS 9833) and be free of harmful contaminants. Consider UV-resistant packaging and controlled cold chain for sensitive ingredients. Mandatory testing includes microbiological safety (e.g., absence of E. coli, Salmonella), nutrient potency stability throughout shelf life, and absence of leaching from packaging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer class="bg-gray-800 text-white mt-16">
         <div class="container mx-auto px-4 py-6 text-center">
             <p>Comprehensive Caffeine Insights application, combining guides on chewing gum manufacturing and organic caffeine sources.</p>
-            <p class="text-sm text-gray-400 mt-2">This is a conceptual tool for information exploration and simplification.</p>
+            <p class="text-sm text-gray-400 mt-2">This tool is for informational purposes and simplifies a complex industrial process.</p>
         </div>
     </footer>
 
@@ -359,6 +436,17 @@ document.addEventListener('DOMContentLoaded', function () {
         labels: ['Sweeteners', 'Gum Base', 'Glycerine', 'Flavors/Others', 'Caffeine'],
         data: [45, 30, 15, 4, 1]
     };
+
+    const gumFormulationTableData = [
+        { component: "Gum Base", range: "25-35% (20-30% regular, 25-30% sugar-free)", func: "Provides chewable matrix, elasticity, cohesiveness, and texture." },
+        { component: "Sweeteners (Bulk Polyols)", range: "40-50%", func: "Provides initial sweetness and bulk." },
+        { component: "Sweeteners (High-Intensity Artificial)", range: "0.05-0.5%", func: "Prolongs sweetness, often encapsulated for controlled release." },
+        { component: "Glycerine", range: "2-15%", func: "Maintains moistness and acts as a softener." },
+        { component: "Softener/Plasticizer", range: "1-2%", func: "Improves flexibility, chewability, reduces brittleness." },
+        { component: "Flavors", range: "1.5-3.0%", func: "Provides taste and sensory appeal." },
+        { component: "Colors", range: "Variable", func: "Enhances visual appeal." },
+        { component: "Caffeine", range: "0.3-3.7% (or 40-100mg per piece)", func: "Active stimulant for energy and alertness." }
+    ];
 
     const gumProcessStepsData = {
         'step-gum-1': {
@@ -391,26 +479,26 @@ document.addEventListener('DOMContentLoaded', function () {
             description: "Sourced from green or black tea leaves, this is a popular choice known for its synergistic compounds that create a balanced energy boost.",
             purity: {
                 title: "Purity & Safety",
-                content: "Extracted with 'green solvents' like Ethanol/Water or natural Ethyl Acetate. Top suppliers (e.g., NESSO, Jayanti) provide third-party lab tests confirming no solvent or pesticide residues. Look for USP grade purity (99%+)."
+                content: "Extracted with 'green solvents' like Ethanol/Water or natural Ethyl Acetate. Top suppliers (e.g., NESSO, Jayanti) provide third-party lab tests confirming no solvent or pesticide residues. Look for USP grade purity (99%+). HACCP certified."
             },
             efficacy: {
                 title: "Efficacy & Profile",
-                content: "Contains L-theanine and polyphenols, which can provide a 'calm focus' and a smoother, more gradual energy peak with fewer jitters. Caffeine concentration varies widely from <1% to >99%."
+                content: "Contains L-theanine and polyphenols, which can provide a 'calm focus' and a smoother, more gradual energy peak with fewer jitters. Caffeine concentration varies widely from <1% to >99%. Associated Health Benefits: Antioxidant, Cognitive Enhancement, Cardiovascular Support, Fat Loss, Blood Sugar Regulation, Anti-inflammatory, Anxiety Alleviation."
             },
             market: {
                 title: "Market & Cost",
-                content: "Readily available from established Indian manufacturers like NESSO and Jayanti. Bulk prices for high-purity extract range from ₹1,400 - ₹4,400/kg. Strong B2B focus."
+                content: "Readily available from established Indian manufacturers like NESSO, Jayanti, Natura Vitalis. Bulk prices for high-purity extract range from ₹1,400 - ₹4,400/kg. NESSO emphasizes competitive pricing due to scale."
             },
             concentration: [1, 99],
             price: [1400, 4400],
             details: {
-                "Extraction Method": "Ethanol/Water or Natural Ethyl Acetate; Water Crystallization",
-                "Key Compounds": "Caffeine, L-Theanine, Polyphenols (EGCG)",
-                "Release Profile": "Smoother, more gradual peak",
-                "Verifiable Organic": "Excellent (NESSO: USDA/EU Organic)",
-                "Pros": "Calm focus, antioxidant benefits, reduced jitters",
-                "Cons": "High EGCG doses carry liver toxicity risk",
-                "Key Suppliers": "NESSO, Jayanti, Natura Vitalis"
+                "Extraction Method": "Ethanol/Water or Natural Ethyl Acetate; Water Crystallization; Solvent Extraction (Natura Vitalis)",
+                "Caffeine Purity / Range": "<1% to >99% (e.g., 99% USP Grade for Jayanti, NESSO; ~99% BP/EP/USP for Natura Vitalis)",
+                "Primary Bioactive Compounds (beyond caffeine)": "EGCG, L-theanine, Polyphenols, Flavonoids",
+                "Key Health Benefits": "Antioxidant, Cognitive Enhancement, Cardiovascular Support, Fat Loss, Blood Sugar Regulation, Anti-inflammatory, Anxiety Alleviation, Calm focus",
+                "Potential Side Effects/Warnings": "Jitters, Insomnia, Headaches, Dizziness, Irregular Heartbeat (high doses/sensitivity); Liver damage (high EGCG doses >800mg/day)",
+                "Recommended Dosages (Daily)": "300-900 mg for fat loss; Health Canada: max 300 mg EGCG/day (single serving 100mg EGCG)",
+                "Key Suppliers": "NESSO, Jayanti, Natura Vitalis (India); Organic India"
             }
         },
         greenCoffee: {
@@ -419,26 +507,26 @@ document.addEventListener('DOMContentLoaded', function () {
             description: "Derived from unroasted coffee beans, this source is valued for its high chlorogenic acid content alongside its caffeine.",
             purity: {
                 title: "Purity & Safety",
-                content: "Premium versions (e.g., PurCaf®) use clean-water extraction, resulting in a neutral taste and high purity (≥95%). Check for USDA Organic certification."
+                content: "Premium versions (e.g., PurCaf®) use clean-water extraction, resulting in a neutral taste and high purity (≥95%). Check for USDA Organic certification. HPLC testing for Ambeorganic."
             },
             efficacy: {
                 title: "Efficacy & Profile",
-                content: "Offers metabolic benefits from chlorogenic acid (weight/blood sugar support). Provides a clean energy boost. Note the distinction between low-caffeine extracts and high-purity caffeine derived from green coffee."
+                content: "Offers metabolic benefits from chlorogenic acid (weight/blood sugar support). Provides a clean energy boost. Note distinction between low-caffeine extracts and high-purity caffeine. Associated Health Benefits: Antioxidant, Anti-inflammatory, Blood Sugar Normalization, Weight Loss, LDL Cholesterol Reduction, Anti-aging, Energy, Focus, Mood Improvement."
             },
             market: {
                 title: "Market & Cost",
-                content: "Available from suppliers like Ambeorganic. Global brands like PurCaf® are also present. Bulk prices for general extract range from ₹400 - ₹1,800/kg."
+                content: "Available from suppliers like Ambeorganic. Global brands like PurCaf® (Applied Food Sciences) also present. Bulk prices for general extract range from ₹400 - ₹1,800/kg."
             },
             concentration: [2, 95],
             price: [400, 1800],
             details: {
-                "Extraction Method": "Clean-water extraction (premium) or solvent extraction",
-                "Key Compounds": "Caffeine, Chlorogenic Acid",
-                "Release Profile": "Standard, clean energy boost",
-                "Verifiable Organic": "Good (PurCaf®: USDA Organic)",
-                "Pros": "Metabolic support, antioxidant effects",
-                "Cons": "Market ambiguity between low-caffeine extract and high-purity caffeine",
-                "Key Suppliers": "Applied Food Sciences (PurCaf®), Ambeorganic"
+                "Extraction Method": "Clean-water extraction (PurCaf®) or solvent extraction",
+                "Caffeine Purity / Range": "2-4% (typical extract); ≥95% (PurCaf®)",
+                "Primary Bioactive Compounds (beyond caffeine)": "Chlorogenic Acid",
+                "Key Health Benefits": "Antioxidant, Anti-inflammatory, Blood Sugar Normalization, Weight Loss, LDL Cholesterol Reduction, Anti-aging, Energy, Focus, Mood Improvement",
+                "Potential Side Effects/Warnings": "Jitters, Insomnia, Anxiety, Increased Blood Pressure (from caffeine content)",
+                "Recommended Dosages (Daily)": "Up to 400 mg decaffeinated GCB extract twice daily; Typical serving of GCA <50 mg caffeine.",
+                "Key Suppliers": "Applied Food Sciences (PurCaf®), Ambeorganic (India)"
             }
         },
         guarana: {
@@ -447,26 +535,26 @@ document.addEventListener('DOMContentLoaded', function () {
             description: "Sourced from the seeds of a South American plant, guarana is famous for its high caffeine content and sustained, long-lasting energy release.",
             purity: {
                 title: "Purity & Safety",
-                content: "Processed into a powder or extract. Safety is a key concern; high doses can cause adverse effects and it has numerous drug interactions. Tannin content is also a consideration for long-term use."
+                content: "Processed into powder or extract. Safety is a key concern (high doses, drug interactions). Tannin content is also a consideration. Organic verification challenging for Indian-sourced; Vitalvibe's is Brazilian origin with stated organic quality. Shri's "organic" claim needs stringent verification."
             },
             efficacy: {
                 title: "Efficacy & Profile",
-                content: "Provides a gradual onset of action that lasts for several hours due to its matrix of tannins and catechins. Ideal for sustained energy, endurance, and prolonged focus."
+                content: "Provides a gradual onset of action that lasts for several hours due to its matrix of tannins and catechins. Ideal for sustained energy, endurance, and prolonged focus. Associated Health Benefits: Powerful Stimulant, Energy, Alertness, Cognitive Performance, Reduced Perceived Exertion, Mood Improvement, boosts metabolism, weight loss aid."
             },
             market: {
                 title: "Market & Cost",
-                content: "Available in India, but verifying *Indian-sourced organic* certification is challenging. Bulk prices range from ₹360 - ₹1,600/kg. Check supplier certification carefully."
+                content: "Available in India from suppliers like Vitalvibe (Brazilian origin) and Shri. Bulk prices range from ₹360 - ₹1,600/kg. Verifying *Indian-sourced organic* certification requires direct supplier scrutiny."
             },
             concentration: [2.7, 5],
             price: [360, 1600],
             details: {
                 "Extraction Method": "Seed processing into powder/extract",
-                "Key Compounds": "Caffeine, Tannins, Catechins",
-                "Release Profile": "Sustained, gradual, long-lasting",
-                "Verifiable Organic": "Challenging for Indian-sourced; requires direct verification",
-                "Pros": "Sustained energy, enhanced cognitive function",
-                "Cons": "Higher risk of side effects and drug interactions; organic status difficult to verify",
-                "Key Suppliers": "Vitalvibe (Brazil origin), Shri"
+                "Caffeine Purity / Range": "2.7% to 8% by weight (significantly higher than coffee/tea leaves)",
+                "Primary Bioactive Compounds (beyond caffeine)": "Catechins, Tannins",
+                "Key Health Benefits": "Powerful Stimulant, Energy, Alertness, Cognitive Performance (response time, information processing), Reduced Perceived Exertion, Mood Improvement, reduced fatigue, strengthened memory, boosts metabolism, weight loss aid, enhanced athletic performance.",
+                "Potential Side Effects/Warnings": "Insomnia, Nervousness, Restlessness, GI upset, Increased Heart Rate/Blood Pressure, Headaches, Anxiety, Tremors. Contraindicated in pregnancy/lactation. Exacerbates anxiety, bleeding disorders, diabetes, diarrhea, IBS, heart disease, high BP, glaucoma, osteoporosis. High tannin content: theoretical risk of oropharynx cancer. Numerous drug interactions.",
+                "Recommended Dosages (Daily)": "200-1000 mg (general); 150 mg for cognitive; 200-800 mg for energy; not exceeding 3 grams per day.",
+                "Key Suppliers": "Vitalvibe (Brazil origin), Shri (India), other IndiaMart suppliers"
             }
         }
     };
@@ -531,8 +619,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function populateGumFormulationTable() {
+        const tableBody = document.getElementById('gum-formulation-table-body');
+        gumFormulationTableData.forEach(item => {
+            const row = document.createElement('tr');
+            row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
+            row.innerHTML = `
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${item.component}</td>
+                <td class="px-6 py-4">${item.range}</td>
+                <td class="px-6 py-4">${item.func}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+
     function setupProcessSteps() {
-        const stepsContainer = document.querySelector('.flex-wrap.justify-center.gap-4.mb-8');
+        const stepsContainer = document.querySelector('#manufacturing .flex-wrap.justify-center.gap-4.mb-8');
         const detailsContainer = document.getElementById('process-details-gum');
 
         function updateDetails(stepId) {
@@ -689,7 +792,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function populateComparisonTableOrganic() {
         const tableBody = document.getElementById('comparison-table-body-organic');
-        const attributes = Object.keys(organicCaffeineData.tea.details);
+        // Define all attributes that should be in the comparison table, in order
+        const attributes = [
+            "Extraction Method",
+            "Caffeine Purity / Range",
+            "Primary Bioactive Compounds (beyond caffeine)",
+            "Key Health Benefits",
+            "Potential Side Effects/Warnings",
+            "Recommended Dosages (Daily)",
+            "Key Suppliers"
+        ];
         
         attributes.forEach(attr => {
             const row = document.createElement('tr');
@@ -697,7 +809,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let rowHTML = `<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${attr}</th>`;
             
             Object.keys(organicCaffeineData).forEach(sourceKey => {
-                rowHTML += `<td class="px-6 py-4">${organicCaffeineData[sourceKey].details[attr]}</td>`;
+                rowHTML += `<td class="px-6 py-4">${organicCaffeineData[sourceKey].details[attr] || 'N/A'}</td>`;
             });
 
             row.innerHTML = rowHTML;
@@ -720,6 +832,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize all sections
     setupFormulationTabs();
     createFormulationChart();
+    populateGumFormulationTable();
     setupProcessSteps();
 
     populateExplorerCardsOrganic();
