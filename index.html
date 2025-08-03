@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Explorer: Organic Caffeine in India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Earth Tones -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard to facilitate direct comparison, a more effective approach than the report's linear structure. It starts with a high-level "Source Explorer" using cards for Tea, Green Coffee, and Guarana, with filters to highlight key aspects (Purity, Efficacy, Cost). This allows users to control information density. Below, interactive charts provide quick quantitative comparisons of caffeine % and price. A detailed comparison table offers an at-a-glance deep dive, and the app concludes with a scannable procurement checklist. This top-down, interactive structure enables users to move from a broad overview to specific details based on their interests, making the dense report content highly digestible and user-centric. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Comparing the three main caffeine sources. Goal: Compare. Viz/Method: Card-based layout with interactive filters. Interaction: Clickable toggles to highlight relevant data on cards. Justification: Breaks down complex info into manageable, comparable units, improving user focus. Library/Method: HTML/CSS/JS.
+        - Report Info: Caffeine Concentration (%) and Price (₹/kg). Goal: Compare. Viz/Method: Bar charts. Interaction: Hover tooltips for precise data. Justification: Bar charts are ideal for direct quantitative comparison across discrete categories. Library/Method: Chart.js (Canvas).
+        - Report Info: Detailed attributes (Extraction, Compounds, Profile, etc.). Goal: Organize/Compare. Viz/Method: Structured HTML table. Interaction: None (static for clarity). Justification: Provides the most information-dense, at-a-glance summary for detailed analysis. Library/Method: HTML/CSS.
+        - Report Info: Procurement Recommendations. Goal: Inform. Viz/Method: Icon-based checklist. Interaction: None. Justification: Enhances scannability and memorability of key actions. Library/Method: HTML/CSS with Unicode icons.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF5;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #556B2F;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .info-card .highlight {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+        }
+        .info-card .highlight.active {
+            background-color: #F0EAD6;
+            border-color: #DAA520;
+        }
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #556B2F;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #6B7280;
+            text-align: center;
+            max-width: 48rem;
+            margin: 0 auto 2.5rem auto;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-[#556B2F]">Organic Caffeine Explorer</h1>
+            <nav class="hidden md:flex space-x-4">
+                <a href="#explorer" class="text-gray-600 hover:text-[#556B2F] font-semibold">Explorer</a>
+                <a href="#charts" class="text-gray-600 hover:text-[#556B2F] font-semibold">Charts</a>
+                <a href="#comparison" class="text-gray-600 hover:text-[#556B2F] font-semibold">Comparison</a>
+                <a href="#recommendations" class="text-gray-600 hover:text-[#556B2F] font-semibold">Checklist</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-12">
+
+        <section id="hero" class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#556B2F] mb-4">Discover the Best Organic Caffeine in India</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-700">
+                This interactive tool translates a detailed research report into an easy-to-use explorer. Compare different sources of organic dehydrated caffeine to find the perfect fit for your application.
+            </p>
+        </section>
+
+        <section id="explorer" class="mb-12 md:mb-20">
+            <h3 class="section-title">Caffeine Source Explorer</h3>
+            <p class="section-subtitle">
+                Select a focus area to highlight the key characteristics of each caffeine source. This allows you to compare sources based on what matters most to you, from safety and purity to efficacy and cost.
+            </p>
+            <div id="filter-controls" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                <button data-filter="purity" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">🔬 Purity & Safety</button>
+                <button data-filter="efficacy" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">⚡ Efficacy & Profile</button>
+                <button data-filter="market" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">🛒 Market & Cost</button>
+                <button data-filter="all" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100 active">🌐 Show All</button>
+            </div>
+
+            <div id="explorer-cards" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+        <section id="charts" class="mb-12 md:mb-20">
+            <h3 class="section-title">Quantitative Comparison</h3>
+             <p class="section-subtitle">
+                These charts provide a clear visual comparison of the key quantitative metrics for each caffeine source. Use them to quickly assess differences in caffeine potency and market price.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold text-center mb-4 text-[#8B4513]">Typical Caffeine Concentration</h4>
+                    <div class="chart-container">
+                        <canvas id="caffeineConcentrationChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold text-center mb-4 text-[#8B4513]">Wholesale Price Range (₹/kg)</h4>
+                    <div class="chart-container">
+                        <canvas id="priceRangeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="mb-12 md:mb-20">
+            <h3 class="section-title">Detailed Side-by-Side Comparison</h3>
+             <p class="section-subtitle">
+                For those who need all the details, this table offers a comprehensive, side-by-side breakdown of each caffeine source across the most critical attributes, from extraction methods to key suppliers.
+            </p>
+            <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-white uppercase bg-[#556B2F]">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Attribute</th>
+                            <th scope="col" class="px-6 py-3">Tea-Derived Caffeine</th>
+                            <th scope="col" class="px-6 py-3">Green Coffee Bean Caffeine</th>
+                            <th scope="col" class="px-6 py-3">Guarana Caffeine</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparison-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="recommendations">
+            <h3 class="section-title">Procurement Checklist</h3>
+             <p class="section-subtitle">
+                Based on the report's findings, follow these key recommendations when sourcing organic dehydrated caffeine to ensure quality, safety, and compliance for your product.
+            </p>
+            <div class="max-w-4xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold text-lg mb-2 text-[#556B2F]">🎯 1. Define Application Needs</h4>
+                    <p class="text-gray-700">Clarify desired caffeine concentration, release profile (immediate vs. sustained), and synergistic health benefits (e.g., L-theanine for focus).</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold text-lg mb-2 text-[#556B2F]">📜 2. Verify Organic Certification</h4>
+                    <p class="text-gray-700">Request and scrutinize NPOP, USDA, or EU Organic certificates for the specific extract. Don't rely on vague "natural" claims.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold text-lg mb-2 text-[#556B2F]">🔬 3. Demand Comprehensive COAs</h4>
+                    <p class="text-gray-700">Insist on a Certificate of Analysis for every batch, detailing purity, contaminants, and microbial testing from a third-party lab.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold text-lg mb-2 text-[#556B2F]">💧 4. Assess Processing Transparency</h4>
+                    <p class="text-gray-700">Favor suppliers who use and clearly document "green" or water-based extraction methods and guarantee residue-free products.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold text-lg mb-2 text-[#556B2F]">⚠️ 5. Adhere to Safety Guidelines</h4>
+                    <p class="text-gray-700">Be aware of source-specific dosage limits and side effects (e.g., EGCG in green tea, drug interactions with guarana).</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold text-lg mb-2 text-[#556B2F]">📞 6. Engage Directly with Suppliers</h4>
+                    <p class="text-gray-700">For B2B procurement, direct communication is crucial to confirm all technical specifications, certifications, and supply chain details.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <p>Interactive application designed based on the "Comprehensive Analysis of the Best Organic Dehydrated Caffeine Forms in India" report.</p>
+            <p class="text-sm text-gray-400 mt-2">This is a conceptual tool for information exploration.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const caffeineData = {
+        tea: {
+            title: "Tea-Derived Caffeine",
+            icon: "�",
+            description: "Sourced from green or black tea leaves, this is a popular choice known for its synergistic compounds that create a balanced energy boost.",
+            purity: {
+                title: "Purity & Safety",
+                content: "Extracted with 'green solvents' like Ethanol/Water or natural Ethyl Acetate. Top suppliers (e.g., NESSO, Jayanti) provide third-party lab tests confirming no solvent or pesticide residues. Look for USP grade purity (99%+)."
+            },
+            efficacy: {
+                title: "Efficacy & Profile",
+                content: "Contains L-theanine and polyphenols, which can provide a 'calm focus' and a smoother, more gradual energy peak with fewer jitters. Caffeine concentration varies widely from <1% to >99%."
+            },
+            market: {
+                title: "Market & Cost",
+                content: "Readily available from established Indian manufacturers like NESSO and Jayanti. Bulk prices for high-purity extract range from ₹1,400 - ₹4,400/kg. Strong B2B focus."
+            },
+            concentration: [1, 99],
+            price: [1400, 4400],
+            details: {
+                "Extraction Method": "Ethanol/Water or Natural Ethyl Acetate; Water Crystallization",
+                "Key Compounds": "Caffeine, L-Theanine, Polyphenols (EGCG)",
+                "Release Profile": "Smoother, more gradual peak",
+                "Verifiable Organic": "Excellent (NESSO: USDA/EU Organic)",
+                "Pros": "Calm focus, antioxidant benefits, reduced jitters",
+                "Cons": "High EGCG doses carry liver toxicity risk",
+                "Key Suppliers": "NESSO, Jayanti, Natura Vitalis"
+            }
+        },
+        greenCoffee: {
+            title: "Green Coffee Bean Caffeine",
+            icon: "🫘",
+            description: "Derived from unroasted coffee beans, this source is valued for its high chlorogenic acid content alongside its caffeine.",
+            purity: {
+                title: "Purity & Safety",
+                content: "Premium versions (e.g., PurCaf®) use clean-water extraction, resulting in a neutral taste and high purity (≥95%). Check for USDA Organic certification."
+            },
+            efficacy: {
+                title: "Efficacy & Profile",
+                content: "Offers metabolic benefits from chlorogenic acid (weight/blood sugar support). Provides a clean energy boost. Note the distinction between low-caffeine extracts and high-purity caffeine derived from green coffee."
+            },
+            market: {
+                title: "Market & Cost",
+                content: "Available from suppliers like Ambeorganic. Global brands like PurCaf® are also present. Bulk prices for general extract range from ₹400 - ₹1,800/kg."
+            },
+            concentration: [2, 95],
+            price: [400, 1800],
+            details: {
+                "Extraction Method": "Clean-water extraction (premium) or solvent extraction",
+                "Key Compounds": "Caffeine, Chlorogenic Acid",
+                "Release Profile": "Standard, clean energy boost",
+                "Verifiable Organic": "Good (PurCaf®: USDA Organic)",
+                "Pros": "Metabolic support, antioxidant effects",
+                "Cons": "Market ambiguity between low-caffeine extract and high-purity caffeine",
+                "Key Suppliers": "Applied Food Sciences (PurCaf®), Ambeorganic"
+            }
+        },
+        guarana: {
+            title: "Guarana Caffeine",
+            icon: "🌰",
+            description: "Sourced from the seeds of a South American plant, guarana is famous for its high caffeine content and sustained, long-lasting energy release.",
+            purity: {
+                title: "Purity & Safety",
+                content: "Processed into a powder or extract. Safety is a key concern; high doses can cause adverse effects and it has numerous drug interactions. Tannin content is also a consideration for long-term use."
+            },
+            efficacy: {
+                title: "Efficacy & Profile",
+                content: "Provides a gradual onset of action that lasts for several hours due to its matrix of tannins and catechins. Ideal for sustained energy, endurance, and prolonged focus."
+            },
+            market: {
+                title: "Market & Cost",
+                content: "Available in India, but verifying *Indian-sourced organic* certification is challenging. Bulk prices range from ₹360 - ₹1,600/kg. Check supplier certification carefully."
+            },
+            concentration: [2.7, 5],
+            price: [360, 1600],
+            details: {
+                "Extraction Method": "Seed processing into powder/extract",
+                "Key Compounds": "Caffeine, Tannins, Catechins",
+                "Release Profile": "Sustained, gradual, long-lasting",
+                "Verifiable Organic": "Challenging for Indian-sourced; requires direct verification",
+                "Pros": "Sustained energy, enhanced cognitive function",
+                "Cons": "Higher risk of side effects and drug interactions; organic status difficult to verify",
+                "Key Suppliers": "Vitalvibe (Brazil origin), Shri"
+            }
+        }
+    };
+
+    function populateExplorerCards() {
+        const container = document.getElementById('explorer-cards');
+        container.innerHTML = '';
+        Object.keys(caffeineData).forEach(key => {
+            const item = caffeineData[key];
+            const card = document.createElement('div');
+            card.className = 'info-card bg-white rounded-lg shadow-lg p-6 flex flex-col';
+            card.innerHTML = `
+                <div class="text-4xl mb-4 text-center">${item.icon}</div>
+                <h4 class="text-2xl font-bold text-center text-[#8B4513] mb-2">${item.title}</h4>
+                <p class="text-gray-600 text-center mb-6 flex-grow">${item.description}</p>
+                <div class="space-y-4">
+                    <div data-highlight="purity" class="highlight p-4">
+                        <h5 class="font-bold text-md text-[#556B2F]">${item.purity.title}</h5>
+                        <p class="text-sm text-gray-700">${item.purity.content}</p>
+                    </div>
+                    <div data-highlight="efficacy" class="highlight p-4">
+                        <h5 class="font-bold text-md text-[#556B2F]">${item.efficacy.title}</h5>
+                        <p class="text-sm text-gray-700">${item.efficacy.content}</p>
+                    </div>
+                    <div data-highlight="market" class="highlight p-4">
+                        <h5 class="font-bold text-md text-[#556B2F]">${item.market.title}</h5>
+                        <p class="text-sm text-gray-700">${item.market.content}</p>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function setupFilters() {
+        const filterControls = document.getElementById('filter-controls');
+        filterControls.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const filter = e.target.dataset.filter;
+                
+                filterControls.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+
+                document.querySelectorAll('.info-card .highlight').forEach(el => {
+                    if (filter === 'all' || el.dataset.highlight === filter) {
+                        el.classList.add('active');
+                    } else {
+                        el.classList.remove('active');
+                    }
+                });
+            }
+        });
+        filterControls.querySelector('[data-filter="all"]').click();
+    }
+
+    function createCharts() {
+        const labels = Object.values(caffeineData).map(d => d.title);
+        const concentrationData = Object.values(caffeineData).map(d => d.concentration);
+        const priceData = Object.values(caffeineData).map(d => d.price);
+
+        const chartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#E5E7EB' },
+                    ticks: { color: '#4A4A4A' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#4A4A4A' }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#4A4A4A',
+                    titleFont: { weight: 'bold' },
+                    bodyFont: { size: 14 },
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                if (Array.isArray(context.dataset.data[context.dataIndex])) {
+                                    const range = context.dataset.data[context.dataIndex];
+                                    label += `${range[0]} - ${range[1]}`;
+                                } else {
+                                    label += context.parsed.y;
+                                }
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('caffeineConcentrationChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Concentration (%)',
+                    data: concentrationData.map(d => d[1]), 
+                    backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'],
+                    borderColor: ['#556B2F', '#D2691E', '#8B4513'],
+                    borderWidth: 1,
+                    data: concentrationData
+                }]
+            },
+            options: { ...chartOptions, plugins: { ...chartOptions.plugins, tooltip: { callbacks: { label: (c) => `Range: ${c.raw[0]}% to ${c.raw[1]}%` } } } }
+        });
+
+        new Chart(document.getElementById('priceRangeChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Price (₹/kg)',
+                    data: priceData.map(d => d[1]),
+                    backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'],
+                    borderColor: ['#556B2F', '#D2691E', '#8B4513'],
+                    borderWidth: 1,
+                    data: priceData
+                }]
+            },
+            options: { ...chartOptions, plugins: { ...chartOptions.plugins, tooltip: { callbacks: { label: (c) => `Range: ₹${c.raw[0]} to ₹${c.raw[1]}` } } } }
+        });
+    }
+
+    function populateComparisonTable() {
+        const tableBody = document.getElementById('comparison-table-body');
+        const attributes = Object.keys(caffeineData.tea.details);
+        
+        attributes.forEach(attr => {
+            const row = document.createElement('tr');
+            row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
+            let rowHTML = `<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${attr}</th>`;
+            
+            Object.keys(caffeineData).forEach(sourceKey => {
+                rowHTML += `<td class="px-6 py-4">${caffeineData[sourceKey].details[attr]}</td>`;
+            });
+
+            row.innerHTML = rowHTML;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function setupSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+
+    populateExplorerCards();
+    setupFilters();
+    createCharts();
+    populateComparisonTable();
+    setupSmoothScrolling();
+});
+</script>
+
+</body>
+</html>
