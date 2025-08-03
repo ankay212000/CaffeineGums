@@ -430,419 +430,417 @@
     </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Data for Caffeine Gum Manufacturing Guide
-    const gumFormulationData = {
-        labels: ['Sweeteners', 'Gum Base', 'Glycerine', 'Flavors/Others', 'Caffeine'],
-        data: [45, 30, 15, 4, 1]
-    };
+        document.addEventListener('DOMContentLoaded', function () {
+            // Data for Caffeine Gum Manufacturing Guide
+            const gumFormulationData = {
+                labels: ['Sweeteners', 'Gum Base', 'Glycerine', 'Flavors/Others', 'Caffeine'],
+                data: [45, 30, 15, 4, 1]
+            };
 
-    const gumFormulationTableData = [
-        { component: "Gum Base", range: "25-35% (20-30% regular, 25-30% sugar-free)", func: "Provides chewable matrix, elasticity, cohesiveness, and texture." },
-        { component: "Sweeteners (Bulk Polyols)", range: "40-50%", func: "Provides initial sweetness and bulk." },
-        { component: "Sweeteners (High-Intensity Artificial)", range: "0.05-0.5%", func: "Prolongs sweetness, often encapsulated for controlled release." },
-        { component: "Glycerine", range: "2-15%", func: "Maintains moistness and acts as a softener." },
-        { component: "Softener/Plasticizer", range: "1-2%", func: "Improves flexibility, chewability, reduces brittleness." },
-        { component: "Flavors", range: "1.5-3.0%", func: "Provides taste and sensory appeal." },
-        { component: "Colors", range: "Variable", func: "Enhances visual appeal." },
-        { component: "Caffeine", range: "0.3-3.7% (or 40-100mg per piece)", func: "Active stimulant for energy and alertness." }
-    ];
+            const gumFormulationTableData = [
+                { component: "Gum Base", range: "25-35% (20-30% regular, 25-30% sugar-free)", func: "Provides chewable matrix, elasticity, cohesiveness, and texture." },
+                { component: "Sweeteners (Bulk Polyols)", range: "40-50%", func: "Provides initial sweetness and bulk." },
+                { component: "Sweeteners (High-Intensity Artificial)", range: "0.05-0.5%", func: "Prolongs sweetness, often encapsulated for controlled release." },
+                { component: "Glycerine", range: "2-15%", func: "Maintains moistness and acts as a softener." },
+                { component: "Softener/Plasticizer", range: "1-2%", func: "Improves flexibility, chewability, reduces brittleness." },
+                { component: "Flavors", range: "1.5-3.0%", func: "Provides taste and sensory appeal." },
+                { component: "Colors", range: "Variable", func: "Enhances visual appeal." },
+                { component: "Caffeine", range: "0.3-3.7% (or 40-100mg per piece)", func: "Active stimulant for energy and alertness." }
+            ];
 
-    const gumProcessStepsData = {
-        'step-gum-1': {
-            title: 'Step 1: Melting & Mixing',
-            description: 'The process begins by melting the gum base in a specialized mixer. Sweeteners, softeners, colors, and the active caffeine ingredient are then added. The mixture is kneaded at a controlled temperature (around 55°C) until a uniform, homogenous mass is formed. Flavors are added last to prevent evaporation.'
-        },
-        'step-gum-2': {
-            title: 'Step 2: Extrusion & Forming',
-            description: 'The warm gum mass is transferred to an extruder, which shapes it into continuous ropes or sheets. This mass is then fed into cutting and rolling machines that form the individual pieces into the desired shape, such as sticks or pellets. A light dusting powder is often applied to prevent sticking.'
-        },
-        'step-gum-3': {
-            title: 'Step 3: Cooling & Conditioning',
-            description: 'The freshly formed gum pieces are moved to a temperature-controlled environment for cooling and conditioning. This critical phase, which can last several hours, allows the gum to solidify, stabilize its texture, and achieve the proper consistency for a fresh and lasting chew.'
-        },
-        'step-gum-4': {
-            title: 'Step 4: Coating (Optional)',
-            description: 'For pellet-style gums, a hard outer shell is applied in a coating machine. The gum centers are tumbled while a syrup mixture is sprayed onto them, building up multiple layers to create a crunchy, flavorful shell. This step also helps protect the gum core.'
-        },
-        'step-gum-5': {
-            title: 'Step 5: Wrapping & Packaging',
-            description: 'The final step is packaging. Individual pieces are wrapped in foil or placed in blister packs to maintain freshness and prevent moisture absorption. Automated machinery handles high-speed wrapping to prepare the product for distribution.'
-        }
-    };
-
-    // Data for Organic Caffeine in India Report
-    const organicCaffeineData = {
-        tea: {
-            title: "Tea-Derived Caffeine",
-            icon: "🍵",
-            description: "Sourced from green or black tea leaves, this is a popular choice known for its synergistic compounds that create a balanced energy boost.",
-            purity: {
-                title: "Purity & Safety",
-                content: "Extracted with 'green solvents' like Ethanol/Water or natural Ethyl Acetate. Top suppliers (e.g., NESSO, Jayanti) provide third-party lab tests confirming no solvent or pesticide residues. Look for USP grade purity (99%+). HACCP certified."
-            },
-            efficacy: {
-                title: "Efficacy & Profile",
-                content: "Contains L-theanine and polyphenols, which can provide a 'calm focus' and a smoother, more gradual energy peak with fewer jitters. Caffeine concentration varies widely from <1% to >99%. Associated Health Benefits: Antioxidant, Cognitive Enhancement, Cardiovascular Support, Fat Loss, Blood Sugar Regulation, Anti-inflammatory, Anxiety Alleviation."
-            },
-            market: {
-                title: "Market & Cost",
-                content: "Readily available from established Indian manufacturers like NESSO, Jayanti, Natura Vitalis. Bulk prices for high-purity extract range from ₹1,400 - ₹4,400/kg. NESSO emphasizes competitive pricing due to scale."
-            },
-            concentration: [1, 99],
-            price: [1400, 4400],
-            details: {
-                "Extraction Method": "Ethanol/Water or Natural Ethyl Acetate; Water Crystallization; Solvent Extraction (Natura Vitalis)",
-                "Caffeine Purity / Range": "<1% to >99% (e.g., 99% USP Grade for Jayanti, NESSO; ~99% BP/EP/USP for Natura Vitalis)",
-                "Primary Bioactive Compounds (beyond caffeine)": "EGCG, L-theanine, Polyphenols, Flavonoids",
-                "Key Health Benefits": "Antioxidant, Cognitive Enhancement, Cardiovascular Support, Fat Loss, Blood Sugar Regulation, Anti-inflammatory, Anxiety Alleviation, Calm focus",
-                "Potential Side Effects/Warnings": "Jitters, Insomnia, Headaches, Dizziness, Irregular Heartbeat (high doses/sensitivity); Liver damage (high EGCG doses >800mg/day)",
-                "Recommended Dosages (Daily)": "300-900 mg for fat loss; Health Canada: max 300 mg EGCG/day (single serving 100mg EGCG)",
-                "Key Suppliers": "NESSO, Jayanti, Natura Vitalis (India); Organic India"
-            }
-        },
-        greenCoffee: {
-            title: "Green Coffee Bean Caffeine",
-            icon: "🫘",
-            description: "Derived from unroasted coffee beans, this source is valued for its high chlorogenic acid content alongside its caffeine.",
-            purity: {
-                title: "Purity & Safety",
-                content: "Premium versions (e.g., PurCaf®) use clean-water extraction, resulting in a neutral taste and high purity (≥95%). Check for USDA Organic certification. HPLC testing for Ambeorganic."
-            },
-            efficacy: {
-                title: "Efficacy & Profile",
-                content: "Offers metabolic benefits from chlorogenic acid (weight/blood sugar support). Provides a clean energy boost. Note distinction between low-caffeine extracts and high-purity caffeine. Associated Health Benefits: Antioxidant, Anti-inflammatory, Blood Sugar Normalization, Weight Loss, LDL Cholesterol Reduction, Anti-aging, Energy, Focus, Mood Improvement."
-            },
-            market: {
-                title: "Market & Cost",
-                content: "Available from suppliers like Ambeorganic. Global brands like PurCaf® (Applied Food Sciences) also present. Bulk prices for general extract range from ₹400 - ₹1,800/kg."
-            },
-            concentration: [2, 95],
-            price: [400, 1800],
-            details: {
-                "Extraction Method": "Clean-water extraction (PurCaf®) or solvent extraction",
-                "Caffeine Purity / Range": "2-4% (typical extract); ≥95% (PurCaf®)",
-                "Primary Bioactive Compounds (beyond caffeine)": "Chlorogenic Acid",
-                "Key Health Benefits": "Antioxidant, Anti-inflammatory, Blood Sugar Normalization, Weight Loss, LDL Cholesterol Reduction, Anti-aging, Energy, Focus, Mood Improvement",
-                "Potential Side Effects/Warnings": "Jitters, Insomnia, Anxiety, Increased Blood Pressure (from caffeine content)",
-                "Recommended Dosages (Daily)": "Up to 400 mg decaffeinated GCB extract twice daily; Typical serving of GCA <50 mg caffeine.",
-                "Key Suppliers": "Applied Food Sciences (PurCaf®), Ambeorganic (India)"
-            }
-        },
-        guarana: {
-            title: "Guarana Caffeine",
-            icon: "🌰",
-            description: "Sourced from the seeds of a South American plant, guarana is famous for its high caffeine content and sustained, long-lasting energy release.",
-            purity: {
-                title: "Purity & Safety",
-                content: "Processed into powder or extract. Safety is a key concern (high doses, drug interactions). Tannin content is also a consideration. Organic verification challenging for Indian-sourced; Vitalvibe's is Brazilian origin with stated organic quality. Shri's "organic" claim needs stringent verification."
-            },
-            efficacy: {
-                title: "Efficacy & Profile",
-                content: "Provides a gradual onset of action that lasts for several hours due to its matrix of tannins and catechins. Ideal for sustained energy, endurance, and prolonged focus. Associated Health Benefits: Powerful Stimulant, Energy, Alertness, Cognitive Performance, Reduced Perceived Exertion, Mood Improvement, boosts metabolism, weight loss aid."
-            },
-            market: {
-                title: "Market & Cost",
-                content: "Available in India from suppliers like Vitalvibe (Brazilian origin) and Shri. Bulk prices range from ₹360 - ₹1,600/kg. Verifying *Indian-sourced organic* certification requires direct supplier scrutiny."
-            },
-            concentration: [2.7, 5],
-            price: [360, 1600],
-            details: {
-                "Extraction Method": "Seed processing into powder/extract",
-                "Caffeine Purity / Range": "2.7% to 8% by weight (significantly higher than coffee/tea leaves)",
-                "Primary Bioactive Compounds (beyond caffeine)": "Catechins, Tannins",
-                "Key Health Benefits": "Powerful Stimulant, Energy, Alertness, Cognitive Performance (response time, information processing), Reduced Perceived Exertion, Mood Improvement, reduced fatigue, strengthened memory, boosts metabolism, weight loss aid, enhanced athletic performance.",
-                "Potential Side Effects/Warnings": "Insomnia, Nervousness, Restlessness, GI upset, Increased Heart Rate/Blood Pressure, Headaches, Anxiety, Tremors. Contraindicated in pregnancy/lactation. Exacerbates anxiety, bleeding disorders, diabetes, diarrhea, IBS, heart disease, high BP, glaucoma, osteoporosis. High tannin content: theoretical risk of oropharynx cancer. Numerous drug interactions.",
-                "Recommended Dosages (Daily)": "200-1000 mg (general); 150 mg for cognitive; 200-800 mg for energy; not exceeding 3 grams per day.",
-                "Key Suppliers": "Vitalvibe (Brazil origin), Shri (India), other IndiaMart suppliers"
-            }
-        }
-    };
-
-    // --- Functions for Caffeine Gum Manufacturing Guide ---
-    function setupFormulationTabs() {
-        const tabs = document.getElementById('formulation-tabs');
-        const contents = document.getElementById('tab-contents');
-        
-        tabs.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') {
-                const tabId = e.target.dataset.tab;
-
-                tabs.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-
-                contents.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                document.getElementById(`${tabId}-content`).classList.add('active');
-            }
-        });
-        tabs.querySelector('button').click();
-    }
-
-    function createFormulationChart() {
-        const ctx = document.getElementById('formulationChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: gumFormulationData.labels,
-                datasets: [{
-                    label: 'Formulation %',
-                    data: gumFormulationData.data,
-                    backgroundColor: ['#D2B48C', '#8B4513', '#A0522D', '#F4A460', '#CD853F'],
-                    borderColor: '#FBF9F6',
-                    borderWidth: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: '#4A4A4A',
-                            font: {
-                                size: 14
-                            }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.label}: ${context.raw}%`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    function populateGumFormulationTable() {
-        const tableBody = document.getElementById('gum-formulation-table-body');
-        gumFormulationTableData.forEach(item => {
-            const row = document.createElement('tr');
-            row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
-            row.innerHTML = `
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${item.component}</td>
-                <td class="px-6 py-4">${item.range}</td>
-                <td class="px-6 py-4">${item.func}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
-
-
-    function setupProcessSteps() {
-        const stepsContainer = document.querySelector('#manufacturing .flex-wrap.justify-center.gap-4.mb-8');
-        const detailsContainer = document.getElementById('process-details-gum');
-
-        function updateDetails(stepId) {
-            const stepData = gumProcessStepsData[stepId];
-            detailsContainer.innerHTML = `
-                <h4 class="font-bold text-xl mb-2 text-[#A0522D]">${stepData.title}</h4>
-                <p class="text-gray-700">${stepData.description}</p>
-            `;
-        }
-        
-        stepsContainer.addEventListener('click', (e) => {
-            const stepElement = e.target.closest('.process-step');
-            if (stepElement) {
-                const stepId = stepElement.id;
-                stepsContainer.querySelectorAll('.process-step').forEach(step => step.classList.remove('active'));
-                stepElement.classList.add('active');
-                updateDetails(stepId);
-            }
-        });
-        
-        document.getElementById('step-gum-1').click(); // Activate first step by default
-    }
-
-    // --- Functions for Organic Caffeine in India Report ---
-    function populateExplorerCardsOrganic() {
-        const container = document.getElementById('explorer-cards-organic');
-        container.innerHTML = '';
-        Object.keys(organicCaffeineData).forEach(key => {
-            const item = organicCaffeineData[key];
-            const card = document.createElement('div');
-            card.className = 'info-card bg-white rounded-lg shadow-lg p-6 flex flex-col';
-            card.innerHTML = `
-                <div class="text-4xl mb-4 text-center">${item.icon}</div>
-                <h4 class="text-2xl font-bold text-center text-[#8B4513] mb-2">${item.title}</h4>
-                <p class="text-gray-600 text-center mb-6 flex-grow">${item.description}</p>
-                <div class="space-y-4">
-                    <div data-highlight="purity" class="highlight p-4">
-                        <h5 class="font-bold text-md text-[#556B2F]">${item.purity.title}</h5>
-                        <p class="text-sm text-gray-700">${item.purity.content}</p>
-                    </div>
-                    <div data-highlight="efficacy" class="highlight p-4">
-                        <h5 class="font-bold text-md text-[#556B2F]">${item.efficacy.title}</h5>
-                        <p class="text-sm text-gray-700">${item.efficacy.content}</p>
-                    </div>
-                    <div data-highlight="market" class="highlight p-4">
-                        <h5 class="font-bold text-md text-[#556B2F]">${item.market.title}</h5>
-                        <p class="text-sm text-gray-700">${item.market.content}</p>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    function setupFiltersOrganic() {
-        const filterControls = document.getElementById('filter-controls-organic');
-        filterControls.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') {
-                const filter = e.target.dataset.filter;
-                
-                filterControls.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-
-                document.querySelectorAll('#explorer-cards-organic .info-card .highlight').forEach(el => {
-                    if (filter === 'all' || el.dataset.highlight === filter) {
-                        el.classList.add('active');
-                    } else {
-                        el.classList.remove('active');
-                    }
-                });
-            }
-        });
-        filterControls.querySelector('[data-filter="all"]').click(); // Activate 'Show All' by default
-    }
-
-    function createChartsOrganic() {
-        const labels = Object.values(organicCaffeineData).map(d => d.title);
-        const concentrationData = Object.values(organicCaffeineData).map(d => d.concentration);
-        const priceData = Object.values(organicCaffeineData).map(d => d.price);
-
-        const chartOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: '#E5E7EB' },
-                    ticks: { color: '#4A4A4A' }
+            const gumProcessStepsData = {
+                'step-gum-1': {
+                    title: 'Step 1: Melting & Mixing',
+                    description: 'The process begins by melting the gum base in a specialized mixer. Sweeteners, softeners, colors, and the active caffeine ingredient are then added. The mixture is kneaded at a controlled temperature (around 55°C) until a uniform, homogenous mass is formed. Flavors are added last to prevent evaporation.'
                 },
-                x: {
-                    grid: { display: false },
-                    ticks: { color: '#4A4A4A' }
+                'step-gum-2': {
+                    title: 'Step 2: Extrusion & Forming',
+                    description: 'The warm gum mass is transferred to an extruder, which shapes it into continuous ropes or sheets. This mass is then fed into cutting and rolling machines that form the individual pieces into the desired shape, such as sticks or pellets. A light dusting powder is often applied to prevent sticking.'
+                },
+                'step-gum-3': {
+                    title: 'Step 3: Cooling & Conditioning',
+                    description: 'The freshly formed gum pieces are moved to a temperature-controlled environment for cooling and conditioning. This critical phase, which can last several hours, allows the gum to solidify, stabilize its texture, and achieve the proper consistency for a fresh and lasting chew.'
+                },
+                'step-gum-4': {
+                    title: 'Step 4: Coating (Optional)',
+                    description: 'For pellet-style gums, a hard outer shell is applied in a coating machine. The gum centers are tumbled while a syrup mixture is sprayed onto them, building up multiple layers to create a crunchy, flavorful shell. This step also helps protect the gum core.'
+                },
+                'step-gum-5': {
+                    title: 'Step 5: Wrapping & Packaging',
+                    description: 'The final step is packaging. Individual pieces are wrapped in foil or placed in blister packs to maintain freshness and prevent moisture absorption. Automated machinery handles high-speed wrapping to prepare the product for distribution.'
                 }
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: '#4A4A4A',
-                    titleFont: { weight: 'bold' },
-                    bodyFont: { size: 14 },
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.parsed.y !== null) {
-                                if (Array.isArray(context.dataset.data[context.dataIndex])) {
-                                    const range = context.dataset.data[context.dataIndex];
-                                    label += `${range[0]} - ${range[1]}`;
-                                } else {
-                                    label += context.parsed.y;
+            };
+
+            // Data for Organic Caffeine in India Report
+            const organicSourcesData = {
+                tea: {
+                    title: "Tea-Derived Caffeine",
+                    icon: "🍵",
+                    description: "Sourced from green or black tea leaves, this is a popular choice known for its synergistic compounds that create a balanced energy boost.",
+                    purity: {
+                        title: "Purity & Safety",
+                        content: "Extracted with 'green solvents' like Ethanol/Water or natural Ethyl Acetate. Top suppliers (e.g., NESSO, Jayanti) provide third-party lab tests confirming no solvent or pesticide residues. Look for USP grade purity (99%+). HACCP certified."
+                    },
+                    efficacy: {
+                        title: "Efficacy & Profile",
+                        content: "Contains L-theanine and polyphenols, which can provide a 'calm focus' and a smoother, more gradual energy peak with fewer jitters. Caffeine concentration varies widely from <1% to >99%. Associated Health Benefits: Antioxidant, Cognitive Enhancement, Cardiovascular Support, Fat Loss, Blood Sugar Regulation, Anti-inflammatory, Anxiety Alleviation."
+                    },
+                    market: {
+                        title: "Market & Cost",
+                        content: "Readily available from established Indian manufacturers like NESSO, Jayanti, Natura Vitalis. Bulk prices for high-purity extract range from ₹1,400 - ₹4,400/kg. NESSO emphasizes competitive pricing due to scale."
+                    },
+                    concentration: [1, 99],
+                    price: [1400, 4400],
+                    details: {
+                        "Extraction Method": "Ethanol/Water or Natural Ethyl Acetate; Water Crystallization; Solvent Extraction (Natura Vitalis)",
+                        "Caffeine Purity / Range": "<1% to >99% (e.g., 99% USP Grade for Jayanti, NESSO; ~99% BP/EP/USP for Natura Vitalis)",
+                        "Primary Bioactive Compounds (beyond caffeine)": "EGCG, L-theanine, Polyphenols, Flavonoids",
+                        "Key Health Benefits": "Antioxidant, Cognitive Enhancement, Cardiovascular Support, Fat Loss, Blood Sugar Regulation, Anti-inflammatory, Anxiety Alleviation, Calm focus",
+                        "Potential Side Effects/Warnings": "Jitters, Insomnia, Headaches, Dizziness, Irregular Heartbeat (high doses/sensitivity); Liver damage (high EGCG doses >800mg/day)",
+                        "Recommended Dosages (Daily)": "300-900 mg for fat loss; Health Canada: max 300 mg EGCG/day (single serving 100mg EGCG)",
+                        "Key Suppliers": "NESSO, Jayanti, Natura Vitalis (India); Organic India"
+                    }
+                },
+                greenCoffee: {
+                    title: "Green Coffee Bean Caffeine",
+                    icon: "🫘",
+                    description: "Derived from unroasted coffee beans, this source is valued for its high chlorogenic acid content alongside its caffeine.",
+                    purity: {
+                        title: "Purity & Safety",
+                        content: "Premium versions (e.g., PurCaf®) use clean-water extraction, resulting in a neutral taste and high purity (≥95%). Check for USDA Organic certification. HPLC testing for Ambeorganic."
+                    },
+                    efficacy: {
+                        title: "Efficacy & Profile",
+                        content: "Offers metabolic benefits from chlorogenic acid (weight/blood sugar support). Provides a clean energy boost. Note distinction between low-caffeine extracts and high-purity caffeine. Associated Health Benefits: Antioxidant, Anti-inflammatory, Blood Sugar Normalization, Weight Loss, LDL Cholesterol Reduction, Anti-aging, Energy, Focus, Mood Improvement."
+                    },
+                    market: {
+                        title: "Market & Cost",
+                        content: "Available from suppliers like Ambeorganic. Global brands like PurCaf® (Applied Food Sciences) also present. Bulk prices for general extract range from ₹400 - ₹1,800/kg."
+                    },
+                    concentration: [2, 95],
+                    price: [400, 1800],
+                    details: {
+                        "Extraction Method": "Clean-water extraction (PurCaf®) or solvent extraction",
+                        "Caffeine Purity / Range": "2-4% (typical extract); ≥95% (PurCaf®)",
+                        "Primary Bioactive Compounds (beyond caffeine)": "Chlorogenic Acid",
+                        "Key Health Benefits": "Antioxidant, Anti-inflammatory, Blood Sugar Normalization, Weight Loss, LDL Cholesterol Reduction, Anti-aging, Energy, Focus, Mood Improvement",
+                        "Potential Side Effects/Warnings": "Jitters, Insomnia, Anxiety, Increased Blood Pressure (from caffeine content)",
+                        "Recommended Dosages (Daily)": "Up to 400 mg decaffeinated GCB extract twice daily; Typical serving of GCA <50 mg caffeine.",
+                        "Key Suppliers": "Applied Food Sciences (PurCaf®), Ambeorganic (India)"
+                    }
+                },
+                guarana: {
+                    title: "Guarana Caffeine",
+                    icon: "🌰",
+                    description: "Sourced from the seeds of a South American plant, guarana is famous for its high caffeine content and sustained, long-lasting energy release.",
+                    purity: {
+                        title: "Purity & Safety",
+                        content: "Processed into powder or extract. Safety is a key concern (high doses, drug interactions). Tannin content is also a consideration. Organic verification challenging for Indian-sourced; Vitalvibe's is Brazilian origin with stated organic quality. Shri's \"organic\" claim needs stringent verification."
+                    },
+                    efficacy: {
+                        title: "Efficacy & Profile",
+                        content: "Provides a gradual onset of action that lasts for several hours due to its matrix of tannins and catechins. Ideal for sustained energy, endurance, and prolonged focus. Associated Health Benefits: Powerful Stimulant, Energy, Alertness, Cognitive Performance, Reduced Perceived Exertion, Mood Improvement, boosts metabolism, weight loss aid."
+                    },
+                    market: {
+                        title: "Market & Cost",
+                        content: "Available in India from suppliers like Vitalvibe (Brazilian origin) and Shri. Bulk prices range from ₹360 - ₹1,600/kg. Verifying *Indian-sourced organic* certification requires direct supplier scrutiny."
+                    },
+                    concentration: [2.7, 5],
+                    price: [360, 1600],
+                    details: {
+                        "Extraction Method": "Seed processing into powder/extract",
+                        "Caffeine Purity / Range": "2.7% to 8% by weight (significantly higher than coffee/tea leaves)",
+                        "Primary Bioactive Compounds (beyond caffeine)": "Catechins, Tannins",
+                        "Key Health Benefits": "Powerful Stimulant, Energy, Alertness, Cognitive Performance (response time, information processing), Reduced Perceived Exertion, Mood Improvement, reduced fatigue, strengthened memory, boosts metabolism, weight loss aid, enhanced athletic performance.",
+                        "Potential Side Effects/Warnings": "Insomnia, Nervousness, Restlessness, GI upset, Increased Heart Rate/Blood Pressure, Headaches, Anxiety, Tremors. Contraindicated in pregnancy/lactation. Exacerbates anxiety, bleeding disorders, diabetes, diarrhea, IBS, heart disease, high BP, glaucoma, osteoporosis. High tannin content: theoretical risk of oropharynx cancer. Numerous drug interactions.",
+                        "Recommended Dosages (Daily)": "200-1000 mg (general); 150 mg for cognitive; 200-800 mg for energy; not exceeding 3 grams per day.",
+                        "Key Suppliers": "Vitalvibe (Brazil origin), Shri (India), other IndiaMart suppliers"
+                    }
+                }
+            };
+
+            // --- Functions for Caffeine Gum Manufacturing Guide ---
+            function setupFormulationTabs() {
+                const tabs = document.getElementById('formulation-tabs');
+                const contents = document.getElementById('tab-contents');
+
+                tabs.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        const tabId = e.target.dataset.tab;
+
+                        tabs.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+
+                        contents.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                        });
+                        document.getElementById(`${tabId}-content`).classList.add('active');
+                    }
+                });
+                tabs.querySelector('button').click();
+            }
+
+            function createFormulationChart() {
+                const ctx = document.getElementById('formulationChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: gumFormulationData.labels,
+                        datasets: [{
+                            label: 'Formulation %',
+                            data: gumFormulationData.data,
+                            backgroundColor: ['#D2B48C', '#8B4513', '#A0522D', '#F4A460', '#CD853F'],
+                            borderColor: '#FBF9F6',
+                            borderWidth: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: '#4A4A4A',
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.label}: ${context.raw}%`;
+                                    }
                                 }
                             }
-                            return label;
                         }
                     }
-                }
-            }
-        };
-
-        new Chart(document.getElementById('caffeineConcentrationChartOrganic'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Concentration (%)',
-                    data: concentrationData.map(d => d[1]), 
-                    backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'], /* Green, orange, brown for organic sources */
-                    borderColor: ['#556B2F', '#D2691E', '#8B4513'],
-                    borderWidth: 1,
-                    data: concentrationData
-                }]
-            },
-            options: { ...chartOptions, plugins: { ...chartOptions.plugins, tooltip: { callbacks: { label: (c) => `Range: ${c.raw[0]}% to ${c.raw[1]}%` } } } }
-        });
-
-        new Chart(document.getElementById('priceRangeChartOrganic'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Price (₹/kg)',
-                    data: priceData.map(d => d[1]),
-                    backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'],
-                    borderColor: ['#556B2F', '#D2691E', '#8B4513'],
-                    borderWidth: 1,
-                    data: priceData
-                }]
-            },
-            options: { ...chartOptions, plugins: { ...chartOptions.plugins, tooltip: { callbacks: { label: (c) => `Range: ₹${c.raw[0]} to ₹${c.raw[1]}` } } } }
-        });
-    }
-
-    function populateComparisonTableOrganic() {
-        const tableBody = document.getElementById('comparison-table-body-organic');
-        // Define all attributes that should be in the comparison table, in order
-        const attributes = [
-            "Extraction Method",
-            "Caffeine Purity / Range",
-            "Primary Bioactive Compounds (beyond caffeine)",
-            "Key Health Benefits",
-            "Potential Side Effects/Warnings",
-            "Recommended Dosages (Daily)",
-            "Key Suppliers"
-        ];
-        
-        attributes.forEach(attr => {
-            const row = document.createElement('tr');
-            row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
-            let rowHTML = `<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${attr}</th>`;
-            
-            Object.keys(organicCaffeineData).forEach(sourceKey => {
-                rowHTML += `<td class="px-6 py-4">${organicCaffeineData[sourceKey].details[attr] || 'N/A'}</td>`;
-            });
-
-            row.innerHTML = rowHTML;
-            tableBody.appendChild(row);
-        });
-    }
-
-    // --- Common Functions ---
-    function setupSmoothScrolling() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
                 });
-            });
+            }
+
+            function populateGumFormulationTable() {
+                const tableBody = document.getElementById('gum-formulation-table-body');
+                gumFormulationTableData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${item.component}</td>
+                        <td class="px-6 py-4">${item.range}</td>
+                        <td class="px-6 py-4">${item.func}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+
+            function setupProcessSteps() {
+                const stepsContainer = document.querySelector('#manufacturing .flex-wrap.justify-center.gap-4.mb-8');
+                const detailsContainer = document.getElementById('process-details-gum');
+
+                function updateDetails(stepId) {
+                    const stepData = gumProcessStepsData[stepId];
+                    detailsContainer.innerHTML = `
+                        <h4 class="font-bold text-xl mb-2 text-[#A0522D]">${stepData.title}</h4>
+                        <p class="text-gray-700">${stepData.description}</p>
+                    `;
+                }
+
+                stepsContainer.addEventListener('click', (e) => {
+                    const stepElement = e.target.closest('.process-step');
+                    if (stepElement) {
+                        const stepId = stepElement.id;
+                        stepsContainer.querySelectorAll('.process-step').forEach(step => step.classList.remove('active'));
+                        stepElement.classList.add('active');
+                        updateDetails(stepId);
+                    }
+                });
+
+                document.getElementById('step-gum-1').click(); // Activate first step by default
+            }
+
+            // --- Functions for Organic Caffeine in India Report ---
+            function populateExplorerCardsOrganic() {
+                const container = document.getElementById('explorer-cards-organic');
+                container.innerHTML = '';
+                Object.keys(organicSourcesData).forEach(key => {
+                    const item = organicSourcesData[key];
+                    const card = document.createElement('div');
+                    card.className = 'info-card bg-white rounded-lg shadow-lg p-6 flex flex-col';
+                    card.innerHTML = `
+                        <div class="text-4xl mb-4 text-center">${item.icon}</div>
+                        <h4 class="text-2xl font-bold text-center text-[#8B4513] mb-2">${item.title}</h4>
+                        <p class="text-gray-600 text-center mb-6 flex-grow">${item.description}</p>
+                        <div class="space-y-4">
+                            <div data-highlight="purity" class="highlight p-4">
+                                <h5 class="font-bold text-md text-[#556B2F]">${item.purity.title}</h5>
+                                <p class="text-sm text-gray-700">${item.purity.content}</p>
+                            </div>
+                            <div data-highlight="efficacy" class="highlight p-4">
+                                <h5 class="font-bold text-md text-[#556B2F]">${item.efficacy.title}</h5>
+                                <p class="text-sm text-gray-700">${item.efficacy.content}</p>
+                            </div>
+                            <div data-highlight="market" class="highlight p-4">
+                                <h5 class="font-bold text-md text-[#556B2F]">${item.market.title}</h5>
+                                <p class="text-sm text-gray-700">${item.market.content}</p>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            function setupFiltersOrganic() {
+                const filterControls = document.getElementById('filter-controls-organic');
+                filterControls.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        const filter = e.target.dataset.filter;
+
+                        filterControls.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+
+                        document.querySelectorAll('#explorer-cards-organic .info-card .highlight').forEach(el => {
+                            if (filter === 'all' || el.dataset.highlight === filter) {
+                                el.classList.add('active');
+                            } else {
+                                el.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+                filterControls.querySelector('[data-filter="all"]').click(); // Activate 'Show All' by default
+            }
+
+            function createChartsOrganic() {
+                const labels = Object.values(organicSourcesData).map(d => d.title);
+                const concentrationData = Object.values(organicSourcesData).map(d => d.concentration);
+                const priceData = Object.values(organicSourcesData).map(d => d.price);
+
+                const chartOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#E5E7EB' },
+                            ticks: { color: '#4A4A4A' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#4A4A4A' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#4A4A4A',
+                            titleFont: { weight: 'bold' },
+                            bodyFont: { size: 14 },
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        if (Array.isArray(context.dataset.data[context.dataIndex])) {
+                                            const range = context.dataset.data[context.dataIndex];
+                                            label += `${range[0]} - ${range[1]}`;
+                                        } else {
+                                            label += context.parsed.y;
+                                        }
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                };
+
+                new Chart(document.getElementById('caffeineConcentrationChartOrganic'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Concentration (%)',
+                            data: concentrationData, /* Directly use the range array */
+                            backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'], /* Green, orange, brown for organic sources */
+                            borderColor: ['#556B2F', '#D2691E', '#8B4513'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { ...chartOptions, plugins: { ...chartOptions.plugins, tooltip: { callbacks: { label: (c) => `Range: ${c.raw[0]}% to ${c.raw[1]}%` } } } }
+                });
+
+                new Chart(document.getElementById('priceRangeChartOrganic'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Price (₹/kg)',
+                            data: priceData, /* Directly use the range array */
+                            backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'],
+                            borderColor: ['#556B2F', '#D2691E', '#8B4513'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { ...chartOptions, plugins: { ...chartOptions.plugins, tooltip: { callbacks: { label: (c) => `Range: ₹${c.raw[0]} to ₹${c.raw[1]}` } } } }
+                });
+            }
+
+            function populateComparisonTableOrganic() {
+                const tableBody = document.getElementById('comparison-table-body-organic');
+                // Define all attributes that should be in the comparison table, in order
+                const attributes = [
+                    "Extraction Method",
+                    "Caffeine Purity / Range",
+                    "Primary Bioactive Compounds (beyond caffeine)",
+                    "Key Health Benefits",
+                    "Potential Side Effects/Warnings",
+                    "Recommended Dosages (Daily)",
+                    "Key Suppliers"
+                ];
+
+                attributes.forEach(attr => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
+                    let rowHTML = `<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${attr}</th>`;
+
+                    Object.keys(organicSourcesData).forEach(sourceKey => {
+                        rowHTML += `<td class="px-6 py-4">${organicSourcesData[sourceKey].details[attr] || 'N/A'}</td>`;
+                    });
+
+                    row.innerHTML = rowHTML;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // --- Common Functions ---
+            function setupSmoothScrolling() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            }
+
+            // Initialize all sections
+            setupFormulationTabs();
+            createFormulationChart();
+            populateGumFormulationTable();
+            setupProcessSteps();
+
+            populateExplorerCardsOrganic();
+            setupFiltersOrganic();
+            createChartsOrganic();
+            populateComparisonTableOrganic();
+
+            setupSmoothScrolling();
         });
-    }
-
-    // Initialize all sections
-    setupFormulationTabs();
-    createFormulationChart();
-    populateGumFormulationTable();
-    setupProcessSteps();
-
-    populateExplorerCardsOrganic();
-    setupFiltersOrganic();
-    createChartsOrganic();
-    populateComparisonTableOrganic();
-    
-    setupSmoothScrolling();
-});
-</script>
+    </script>
 
 </body>
 </html>
