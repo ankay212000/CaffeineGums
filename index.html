@@ -3,31 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Explorer: Organic Caffeine in India</title>
+    <title>Comprehensive Caffeine Insights: Gum & Sources</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals & Earth Tones -->
-    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard to facilitate direct comparison, a more effective approach than the report's linear structure. It starts with a high-level "Source Explorer" using cards for Tea, Green Coffee, and Guarana, with filters to highlight key aspects (Purity, Efficacy, Cost). This allows users to control information density. Below, interactive charts provide quick quantitative comparisons of caffeine % and price. A detailed comparison table offers an at-a-glance deep dive, and the app concludes with a scannable procurement checklist. This top-down, interactive structure enables users to move from a broad overview to specific details based on their interests, making the dense report content highly digestible and user-centric. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Comparing the three main caffeine sources. Goal: Compare. Viz/Method: Card-based layout with interactive filters. Interaction: Clickable toggles to highlight relevant data on cards. Justification: Breaks down complex info into manageable, comparable units, improving user focus. Library/Method: HTML/CSS/JS.
-        - Report Info: Caffeine Concentration (%) and Price (₹/kg). Goal: Compare. Viz/Method: Bar charts. Interaction: Hover tooltips for precise data. Justification: Bar charts are ideal for direct quantitative comparison across discrete categories. Library/Method: Chart.js (Canvas).
-        - Report Info: Detailed attributes (Extraction, Compounds, Profile, etc.). Goal: Organize/Compare. Viz/Method: Structured HTML table. Interaction: None (static for clarity). Justification: Provides the most information-dense, at-a-glance summary for detailed analysis. Library/Method: HTML/CSS.
-        - Report Info: Procurement Recommendations. Goal: Inform. Viz/Method: Icon-based checklist. Interaction: None. Justification: Enhances scannability and memorability of key actions. Library/Method: HTML/CSS with Unicode icons.
+    <!-- Chosen Palette: Earthy Browns, Warm Neutrals, and Subtle Greens/Oranges -->
+    <!-- Application Structure Plan: This SPA integrates two distinct reports into a unified, scrollable experience. It begins with a combined hero section, followed by a main navigation linking to different content areas.
+        1. **Caffeine Gum Manufacturing Guide:** This section (Formulation, Manufacturing Process, Compliance) adopts a sequential "how-to" structure with tabs for formulation details and a clickable timeline for the process. This guides the user through the production steps of caffeine gum.
+        2. **Organic Caffeine Source Explorer:** This section (Source Explorer, Quantitative Charts, Detailed Comparison, Procurement Checklist) uses a dashboard-like approach with interactive cards, filters, and charts for comparative analysis. This allows users to explore different caffeine sources.
+        The overall structure is linear by topic area, but each major topic provides internal interactive elements, enabling deep dives without leaving the page. This design prioritizes user understanding and ease of navigation for both sets of complex information.
+    -->
+    <!-- Visualization & Content Choices:
+        - Report 1 (Gum): Core gum components. Goal: Organize/Inform. Viz/Method: Tabbed interface (HTML/CSS/JS). Interaction: Clicking tabs reveals content. Justification: Breaks down complex info.
+        - Report 1 (Gum): Typical formulation percentages. Goal: Inform/Compare. Viz/Method: Donut Chart (Chart.js/Canvas). Interaction: Hover tooltips. Justification: Visual breakdown of composition.
+        - Report 1 (Gum): Industrial manufacturing steps. Goal: Organize/Change. Viz/Method: Horizontal, icon-based timeline (HTML/CSS/JS). Interaction: Clicking highlights step and shows details. Justification: Engaging, easy-to-follow process flow.
+        - Report 1 (Gum): Regulatory compliance points. Goal: Inform. Viz/Method: Styled checklist with icons (HTML/CSS/Unicode). Interaction: None. Justification: Scannable regulatory info.
+
+        - Report 2 (Sources): Comparing caffeine sources. Goal: Compare. Viz/Method: Card-based layout with filters (HTML/CSS/JS). Interaction: Toggles highlight relevant data. Justification: Breaks down comparison into manageable units.
+        - Report 2 (Sources): Caffeine Concentration & Price. Goal: Compare. Viz/Method: Bar charts (Chart.js/Canvas). Interaction: Hover tooltips. Justification: Ideal for direct quantitative comparison.
+        - Report 2 (Sources): Detailed attributes. Goal: Organize/Compare. Viz/Method: Structured HTML table (HTML/CSS). Interaction: None. Justification: Information-dense summary for detailed analysis.
+        - Report 2 (Sources): Procurement Recommendations. Goal: Inform. Viz/Method: Icon-based checklist (HTML/CSS/Unicode). Interaction: None. Justification: Enhances scannability and memorability.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #FDFBF5;
+            background-color: #FBF9F6; /* Slightly warmer neutral from Gum report */
             color: #4A4A4A;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
+            max-width: 600px; /* Broader max-width for charts */
             margin-left: auto;
             margin-right: auto;
             height: 350px;
@@ -38,11 +47,37 @@
                 height: 400px;
             }
         }
-        .nav-button {
+        /* Styles from Gum report */
+        .nav-button.active {
+            background-color: #A0522D; /* Main accent for active states */
+            color: #FFFFFF;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .process-step {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .process-step.active {
+            background-color: #D2B48C; /* Lighter brown accent */
+            transform: scale(1.05);
+        }
+        .process-step .step-icon {
+            transition: transform 0.3s ease;
+        }
+        .process-step.active .step-icon {
+            transform: rotate(15deg);
+        }
+        /* Styles from Organic Caffeine report */
+        .nav-button-organic { /* Specific class for organic caffeine filters to distinguish */
             transition: all 0.3s ease;
         }
-        .nav-button.active {
-            background-color: #556B2F;
+        .nav-button-organic.active {
+            background-color: #556B2F; /* Green accent for organic section */
             color: #FFFFFF;
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -53,13 +88,14 @@
             border-radius: 0.5rem;
         }
         .info-card .highlight.active {
-            background-color: #F0EAD6;
-            border-color: #DAA520;
+            background-color: #F0EAD6; /* Light yellow-brown accent */
+            border-color: #DAA520; /* Gold accent */
         }
+        /* Common section titles */
         .section-title {
             font-size: 1.875rem;
             font-weight: 700;
-            color: #556B2F;
+            color: #8B4513; /* Darker brown for main titles */
             text-align: center;
             margin-bottom: 1rem;
         }
@@ -76,43 +112,163 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold text-[#556B2F]">Organic Caffeine Explorer</h1>
+            <h1 class="text-xl md:text-2xl font-bold text-[#8B4513]">Caffeine Insights Hub</h1>
             <nav class="hidden md:flex space-x-4">
-                <a href="#explorer" class="text-gray-600 hover:text-[#556B2F] font-semibold">Explorer</a>
-                <a href="#charts" class="text-gray-600 hover:text-[#556B2F] font-semibold">Charts</a>
-                <a href="#comparison" class="text-gray-600 hover:text-[#556B2F] font-semibold">Comparison</a>
-                <a href="#recommendations" class="text-gray-600 hover:text-[#556B2F] font-semibold">Checklist</a>
+                <a href="#hero-main" class="text-gray-600 hover:text-[#8B4513] font-semibold">Home</a>
+                <a href="#formulation" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Formulation</a>
+                <a href="#manufacturing" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Process</a>
+                <a href="#explorer-organic" class="text-gray-600 hover:text-[#8B4513] font-semibold">Caffeine Sources</a>
+                <a href="#charts-organic" class="text-gray-600 hover:text-[#8B4513] font-semibold">Source Charts</a>
+                <a href="#compliance-gum" class="text-gray-600 hover:text-[#8B4513] font-semibold">Gum Compliance</a>
+                <a href="#recommendations-organic" class="text-gray-600 hover:text-[#8B4513] font-semibold">Source Checklist</a>
             </nav>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 md:py-12">
 
-        <section id="hero" class="text-center mb-12 md:mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-[#556B2F] mb-4">Discover the Best Organic Caffeine in India</h2>
+        <section id="hero-main" class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#8B4513] mb-4">Mastering Caffeine: From Gum to Source</h2>
             <p class="max-w-3xl mx-auto text-lg text-gray-700">
-                This interactive tool translates a detailed research report into an easy-to-use explorer. Compare different sources of organic dehydrated caffeine to find the perfect fit for your application.
+                Dive into a comprehensive guide covering the intricate process of creating caffeine-infused chewing gum and an analytical comparison of organic caffeine sources available in India.
             </p>
         </section>
 
-        <section id="explorer" class="mb-12 md:mb-20">
-            <h3 class="section-title">Caffeine Source Explorer</h3>
+        <!-- START: Caffeine Gum Manufacturing Guide Sections -->
+        <section id="formulation" class="mb-12 md:mb-20">
+            <h3 class="section-title">Interactive Gum Formulation Explorer</h3>
+            <p class="section-subtitle">
+                The foundation of any chewing gum is its precise blend of ingredients. This section breaks down the core components, their functions, and how they interact to create the final product. Click on the tabs to explore each category and see how they contribute to the overall formulation.
+            </p>
+            <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="mb-6 border-b border-gray-200">
+                        <nav id="formulation-tabs" class="flex flex-wrap -mb-px" aria-label="Tabs">
+                            <button class="nav-button text-sm font-medium text-center p-3 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="gum-base">Gum Base</button>
+                            <button class="nav-button text-sm font-medium text-center p-3 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="sweeteners">Sweeteners</button>
+                            <button class="nav-button text-sm font-medium text-center p-3 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="caffeine-gum">Caffeine</button>
+                            <button class="nav-button text-sm font-medium text-center p-3 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="others-gum">Other Agents</button>
+                        </nav>
+                    </div>
+                    <div id="tab-contents">
+                        <div id="gum-base-content" class="tab-content">
+                            <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Gum Base (25-35%)</h4>
+                            <p class="text-gray-700">The non-digestible, chewable core that provides elasticity and texture. It's a complex blend of elastomers, resins, waxes, and fillers. The properties of the gum base are critical as they directly influence the release rate of caffeine and other active ingredients.</p>
+                        </div>
+                        <div id="sweeteners-content" class="tab-content">
+                            <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Sweeteners (40-50%)</h4>
+                            <p class="text-gray-700">Essential for palatability and masking caffeine's bitterness. This includes bulk sweeteners (like sorbitol, xylitol) for initial taste and mass, and high-intensity sweeteners (like sucralose) for prolonged sweetness. Encapsulation is often used for controlled release.</p>
+                        </div>
+                        <div id="caffeine-gum-content" class="tab-content">
+                            <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Caffeine (0.3-3.7%)</h4>
+                            <p class="text-gray-700">The active stimulant. Sourced from natural extracts (Green Tea, Guarana) or synthetically. It is often encapsulated or specially treated to mask its bitter taste and to control its release, providing either a quick boost or a sustained effect.</p>
+                        </div>
+                         <div id="others-gum-content" class="tab-content">
+                            <h4 class="font-bold text-xl mb-2 text-[#A0522D]">Softeners, Flavors & Colors (~5%)</h4>
+                            <p class="text-gray-700">These components fine-tune the sensory experience. Softeners (like glycerin) ensure flexibility. Flavors provide the desired taste profile and help mask bitterness. Colors enhance visual appeal. Their interaction is key to consumer acceptance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="text-xl font-bold text-center mb-4 text-[#A0522D]">Typical Formulation Breakdown</h4>
+                    <div class="chart-container">
+                        <canvas id="formulationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="manufacturing" class="mb-12 md:mb-20">
+            <h3 class="section-title">The Manufacturing Process</h3>
+            <p class="section-subtitle">
+                Industrial production of caffeine gum is a precise, multi-stage process. From melting the gum base to final packaging, each step is carefully controlled to ensure quality and consistency. Click on each step below to learn more about its role in the production line.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <div id="step-gum-1" class="process-step flex-1 min-w-[150px] bg-white p-4 rounded-lg shadow-md text-center border-b-4 border-transparent">
+                    <div class="step-icon text-4xl mb-2">🔥</div>
+                    <h5 class="font-semibold">1. Melting & Mixing</h5>
+                </div>
+                <div id="step-gum-2" class="process-step flex-1 min-w-[150px] bg-white p-4 rounded-lg shadow-md text-center border-b-4 border-transparent">
+                    <div class="step-icon text-4xl mb-2">✂️</div>
+                    <h5 class="font-semibold">2. Extrusion & Forming</h5>
+                </div>
+                <div id="step-gum-3" class="process-step flex-1 min-w-[150px] bg-white p-4 rounded-lg shadow-md text-center border-b-4 border-transparent">
+                    <div class="step-icon text-4xl mb-2">❄️</div>
+                    <h5 class="font-semibold">3. Cooling & Conditioning</h5>
+                </div>
+                <div id="step-gum-4" class="process-step flex-1 min-w-[150px] bg-white p-4 rounded-lg shadow-md text-center border-b-4 border-transparent">
+                    <div class="step-icon text-4xl mb-2">🍬</div>
+                    <h5 class="font-semibold">4. Coating (Optional)</h5>
+                </div>
+                <div id="step-gum-5" class="process-step flex-1 min-w-[150px] bg-white p-4 rounded-lg shadow-md text-center border-b-4 border-transparent">
+                    <div class="step-icon text-4xl mb-2">📦</div>
+                    <h5 class="font-semibold">5. Packaging</h5>
+                </div>
+            </div>
+            <div id="process-details-gum" class="bg-white p-6 rounded-lg shadow-lg min-h-[150px]">
+                <!-- Details will be populated by JS -->
+            </div>
+        </section>
+
+        <section id="compliance-gum" class="mb-12 md:mb-20">
+            <h3 class="section-title">Regulatory & Safety Checklist for Gum</h3>
+            <p class="section-subtitle">
+                Bringing a functional food product to market requires strict adherence to safety and regulatory standards. This checklist highlights the key compliance points from the report, covering FSSAI regulations in India, labeling laws, and essential safety testing.
+            </p>
+            <div class="max-w-4xl mx-auto space-y-4">
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">📋</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">Compositional Standards (FSSAI)</h4>
+                        <p class="text-gray-700">Ensure the product meets specific limits for gum content, moisture, ash, and sugar content as defined by FSSAI regulations for chewing gum.</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">🔬</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">Caffeine Dosage & Limits</h4>
+                        <p class="text-gray-700">Carefully calibrate caffeine per piece (e.g., 40-100mg) to be effective yet safe, referencing FSSAI limits for caffeinated products and food supplements (e.g., max 300mg/day).</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">🏷️</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">Accurate Labeling & Claims</h4>
+                        <p class="text-gray-700">All functional claims must be scientifically substantiated. Labels must clearly state ingredient amounts, recommended daily limits, and include warnings for vulnerable groups (children, pregnant women).</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="text-2xl pt-1">🛡️</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-[#8B4513]">Safety & Stability Testing</h4>
+                        <p class="text-gray-700">Conduct mandatory microbiological safety testing and stability tests to ensure nutrient potency is maintained throughout the product's entire shelf life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: Caffeine Gum Manufacturing Guide Sections -->
+
+        <hr class="my-16 border-t-2 border-gray-200">
+
+        <!-- START: Organic Caffeine in India Sections -->
+        <section id="explorer-organic" class="mb-12 md:mb-20">
+            <h3 class="section-title">Organic Caffeine Source Explorer (India)</h3>
             <p class="section-subtitle">
                 Select a focus area to highlight the key characteristics of each caffeine source. This allows you to compare sources based on what matters most to you, from safety and purity to efficacy and cost.
             </p>
-            <div id="filter-controls" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
-                <button data-filter="purity" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">🔬 Purity & Safety</button>
-                <button data-filter="efficacy" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">⚡ Efficacy & Profile</button>
-                <button data-filter="market" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">🛒 Market & Cost</button>
-                <button data-filter="all" class="nav-button font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100 active">🌐 Show All</button>
+            <div id="filter-controls-organic" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                <button data-filter="purity" class="nav-button-organic font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">🔬 Purity & Safety</button>
+                <button data-filter="efficacy" class="nav-button-organic font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">⚡ Efficacy & Profile</button>
+                <button data-filter="market" class="nav-button-organic font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100">🛒 Market & Cost</button>
+                <button data-filter="all" class="nav-button-organic font-semibold py-2 px-4 rounded-full bg-white shadow-md hover:bg-gray-100 active">🌐 Show All</button>
             </div>
 
-            <div id="explorer-cards" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="explorer-cards-organic" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             </div>
         </section>
 
-        <section id="charts" class="mb-12 md:mb-20">
-            <h3 class="section-title">Quantitative Comparison</h3>
+        <section id="charts-organic" class="mb-12 md:mb-20">
+            <h3 class="section-title">Quantitative Comparison (Organic Sources)</h3>
              <p class="section-subtitle">
                 These charts provide a clear visual comparison of the key quantitative metrics for each caffeine source. Use them to quickly assess differences in caffeine potency and market price.
             </p>
@@ -120,20 +276,20 @@
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h4 class="text-xl font-bold text-center mb-4 text-[#8B4513]">Typical Caffeine Concentration</h4>
                     <div class="chart-container">
-                        <canvas id="caffeineConcentrationChart"></canvas>
+                        <canvas id="caffeineConcentrationChartOrganic"></canvas>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h4 class="text-xl font-bold text-center mb-4 text-[#8B4513]">Wholesale Price Range (₹/kg)</h4>
                     <div class="chart-container">
-                        <canvas id="priceRangeChart"></canvas>
+                        <canvas id="priceRangeChartOrganic"></canvas>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="comparison" class="mb-12 md:mb-20">
-            <h3 class="section-title">Detailed Side-by-Side Comparison</h3>
+        <section id="comparison-organic" class="mb-12 md:mb-20">
+            <h3 class="section-title">Detailed Side-by-Side Comparison (Organic Sources)</h3>
              <p class="section-subtitle">
                 For those who need all the details, this table offers a comprehensive, side-by-side breakdown of each caffeine source across the most critical attributes, from extraction methods to key suppliers.
             </p>
@@ -147,14 +303,14 @@
                             <th scope="col" class="px-6 py-3">Guarana Caffeine</th>
                         </tr>
                     </thead>
-                    <tbody id="comparison-table-body">
+                    <tbody id="comparison-table-body-organic">
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <section id="recommendations">
-            <h3 class="section-title">Procurement Checklist</h3>
+        <section id="recommendations-organic">
+            <h3 class="section-title">Procurement Checklist (Organic Sources)</h3>
              <p class="section-subtitle">
                 Based on the report's findings, follow these key recommendations when sourcing organic dehydrated caffeine to ensure quality, safety, and compliance for your product.
             </p>
@@ -185,22 +341,53 @@
                 </div>
             </div>
         </section>
+        <!-- END: Organic Caffeine in India Sections -->
 
     </main>
 
     <footer class="bg-gray-800 text-white mt-16">
         <div class="container mx-auto px-4 py-6 text-center">
-            <p>Interactive application designed based on the "Comprehensive Analysis of the Best Organic Dehydrated Caffeine Forms in India" report.</p>
-            <p class="text-sm text-gray-400 mt-2">This is a conceptual tool for information exploration.</p>
+            <p>Comprehensive Caffeine Insights application, combining guides on chewing gum manufacturing and organic caffeine sources.</p>
+            <p class="text-sm text-gray-400 mt-2">This is a conceptual tool for information exploration and simplification.</p>
         </div>
     </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const caffeineData = {
+    // Data for Caffeine Gum Manufacturing Guide
+    const gumFormulationData = {
+        labels: ['Sweeteners', 'Gum Base', 'Glycerine', 'Flavors/Others', 'Caffeine'],
+        data: [45, 30, 15, 4, 1]
+    };
+
+    const gumProcessStepsData = {
+        'step-gum-1': {
+            title: 'Step 1: Melting & Mixing',
+            description: 'The process begins by melting the gum base in a specialized mixer. Sweeteners, softeners, colors, and the active caffeine ingredient are then added. The mixture is kneaded at a controlled temperature (around 55°C) until a uniform, homogenous mass is formed. Flavors are added last to prevent evaporation.'
+        },
+        'step-gum-2': {
+            title: 'Step 2: Extrusion & Forming',
+            description: 'The warm gum mass is transferred to an extruder, which shapes it into continuous ropes or sheets. This mass is then fed into cutting and rolling machines that form the individual pieces into the desired shape, such as sticks or pellets. A light dusting powder is often applied to prevent sticking.'
+        },
+        'step-gum-3': {
+            title: 'Step 3: Cooling & Conditioning',
+            description: 'The freshly formed gum pieces are moved to a temperature-controlled environment for cooling and conditioning. This critical phase, which can last several hours, allows the gum to solidify, stabilize its texture, and achieve the proper consistency for a fresh and lasting chew.'
+        },
+        'step-gum-4': {
+            title: 'Step 4: Coating (Optional)',
+            description: 'For pellet-style gums, a hard outer shell is applied in a coating machine. The gum centers are tumbled while a syrup mixture is sprayed onto them, building up multiple layers to create a crunchy, flavorful shell. This step also helps protect the gum core.'
+        },
+        'step-gum-5': {
+            title: 'Step 5: Wrapping & Packaging',
+            description: 'The final step is packaging. Individual pieces are wrapped in foil or placed in blister packs to maintain freshness and prevent moisture absorption. Automated machinery handles high-speed wrapping to prepare the product for distribution.'
+        }
+    };
+
+    // Data for Organic Caffeine in India Report
+    const organicCaffeineData = {
         tea: {
             title: "Tea-Derived Caffeine",
-            icon: "�",
+            icon: "🍵",
             description: "Sourced from green or black tea leaves, this is a popular choice known for its synergistic compounds that create a balanced energy boost.",
             purity: {
                 title: "Purity & Safety",
@@ -284,11 +471,97 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    function populateExplorerCards() {
-        const container = document.getElementById('explorer-cards');
+    // --- Functions for Caffeine Gum Manufacturing Guide ---
+    function setupFormulationTabs() {
+        const tabs = document.getElementById('formulation-tabs');
+        const contents = document.getElementById('tab-contents');
+        
+        tabs.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const tabId = e.target.dataset.tab;
+
+                tabs.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+
+                contents.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            }
+        });
+        tabs.querySelector('button').click();
+    }
+
+    function createFormulationChart() {
+        const ctx = document.getElementById('formulationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: gumFormulationData.labels,
+                datasets: [{
+                    label: 'Formulation %',
+                    data: gumFormulationData.data,
+                    backgroundColor: ['#D2B48C', '#8B4513', '#A0522D', '#F4A460', '#CD853F'],
+                    borderColor: '#FBF9F6',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#4A4A4A',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function setupProcessSteps() {
+        const stepsContainer = document.querySelector('.flex-wrap.justify-center.gap-4.mb-8');
+        const detailsContainer = document.getElementById('process-details-gum');
+
+        function updateDetails(stepId) {
+            const stepData = gumProcessStepsData[stepId];
+            detailsContainer.innerHTML = `
+                <h4 class="font-bold text-xl mb-2 text-[#A0522D]">${stepData.title}</h4>
+                <p class="text-gray-700">${stepData.description}</p>
+            `;
+        }
+        
+        stepsContainer.addEventListener('click', (e) => {
+            const stepElement = e.target.closest('.process-step');
+            if (stepElement) {
+                const stepId = stepElement.id;
+                stepsContainer.querySelectorAll('.process-step').forEach(step => step.classList.remove('active'));
+                stepElement.classList.add('active');
+                updateDetails(stepId);
+            }
+        });
+        
+        document.getElementById('step-gum-1').click(); // Activate first step by default
+    }
+
+    // --- Functions for Organic Caffeine in India Report ---
+    function populateExplorerCardsOrganic() {
+        const container = document.getElementById('explorer-cards-organic');
         container.innerHTML = '';
-        Object.keys(caffeineData).forEach(key => {
-            const item = caffeineData[key];
+        Object.keys(organicCaffeineData).forEach(key => {
+            const item = organicCaffeineData[key];
             const card = document.createElement('div');
             card.className = 'info-card bg-white rounded-lg shadow-lg p-6 flex flex-col';
             card.innerHTML = `
@@ -314,8 +587,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function setupFilters() {
-        const filterControls = document.getElementById('filter-controls');
+    function setupFiltersOrganic() {
+        const filterControls = document.getElementById('filter-controls-organic');
         filterControls.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON') {
                 const filter = e.target.dataset.filter;
@@ -323,7 +596,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 filterControls.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
 
-                document.querySelectorAll('.info-card .highlight').forEach(el => {
+                document.querySelectorAll('#explorer-cards-organic .info-card .highlight').forEach(el => {
                     if (filter === 'all' || el.dataset.highlight === filter) {
                         el.classList.add('active');
                     } else {
@@ -332,13 +605,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
         });
-        filterControls.querySelector('[data-filter="all"]').click();
+        filterControls.querySelector('[data-filter="all"]').click(); // Activate 'Show All' by default
     }
 
-    function createCharts() {
-        const labels = Object.values(caffeineData).map(d => d.title);
-        const concentrationData = Object.values(caffeineData).map(d => d.concentration);
-        const priceData = Object.values(caffeineData).map(d => d.price);
+    function createChartsOrganic() {
+        const labels = Object.values(organicCaffeineData).map(d => d.title);
+        const concentrationData = Object.values(organicCaffeineData).map(d => d.concentration);
+        const priceData = Object.values(organicCaffeineData).map(d => d.price);
 
         const chartOptions = {
             maintainAspectRatio: false,
@@ -381,14 +654,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
-        new Chart(document.getElementById('caffeineConcentrationChart'), {
+        new Chart(document.getElementById('caffeineConcentrationChartOrganic'), {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
                     label: 'Concentration (%)',
                     data: concentrationData.map(d => d[1]), 
-                    backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'],
+                    backgroundColor: ['#8FBC8F', '#F4A460', '#CD853F'], /* Green, orange, brown for organic sources */
                     borderColor: ['#556B2F', '#D2691E', '#8B4513'],
                     borderWidth: 1,
                     data: concentrationData
@@ -397,7 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
             options: { ...chartOptions, plugins: { ...chartOptions.plugins, tooltip: { callbacks: { label: (c) => `Range: ${c.raw[0]}% to ${c.raw[1]}%` } } } }
         });
 
-        new Chart(document.getElementById('priceRangeChart'), {
+        new Chart(document.getElementById('priceRangeChartOrganic'), {
             type: 'bar',
             data: {
                 labels: labels,
@@ -414,17 +687,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function populateComparisonTable() {
-        const tableBody = document.getElementById('comparison-table-body');
-        const attributes = Object.keys(caffeineData.tea.details);
+    function populateComparisonTableOrganic() {
+        const tableBody = document.getElementById('comparison-table-body-organic');
+        const attributes = Object.keys(organicCaffeineData.tea.details);
         
         attributes.forEach(attr => {
             const row = document.createElement('tr');
             row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
             let rowHTML = `<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${attr}</th>`;
             
-            Object.keys(caffeineData).forEach(sourceKey => {
-                rowHTML += `<td class="px-6 py-4">${caffeineData[sourceKey].details[attr]}</td>`;
+            Object.keys(organicCaffeineData).forEach(sourceKey => {
+                rowHTML += `<td class="px-6 py-4">${organicCaffeineData[sourceKey].details[attr]}</td>`;
             });
 
             row.innerHTML = rowHTML;
@@ -432,6 +705,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // --- Common Functions ---
     function setupSmoothScrolling() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -443,10 +717,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    populateExplorerCards();
-    setupFilters();
-    createCharts();
-    populateComparisonTable();
+    // Initialize all sections
+    setupFormulationTabs();
+    createFormulationChart();
+    setupProcessSteps();
+
+    populateExplorerCardsOrganic();
+    setupFiltersOrganic();
+    createChartsOrganic();
+    populateComparisonTableOrganic();
+    
     setupSmoothScrolling();
 });
 </script>
