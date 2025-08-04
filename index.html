@@ -803,7 +803,7 @@
 
                 attributes.forEach(attr => {
                     const row = document.createElement('tr');
-                    row.className = 'bg-gray-200 border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200';
+                    row.className = 'border-b dark:bg-gray-800 dark:border-gray-700';
                     let rowHTML = `<th scope="row" class="px-6 py-4 font-medium whitespace-nowrap" style="color: rgba(175, 199, 232, 1);">${attr}</th>`;
 
                     Object.keys(organicSourcesData).forEach(sourceKey => {
