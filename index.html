@@ -625,7 +625,7 @@
                     const row = document.createElement('tr');
                     row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
                     row.innerHTML = `
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${item.component}</td>
+                        <td class="px-6 py-4 font-medium whitespace-nowrap style="color: rgba(175, 199, 232, 1);">${item.component}</td>
                         <td class="px-6 py-4">${item.range}</td>
                         <td class="px-6 py-4">${item.func}</td>
                     `;
@@ -804,7 +804,7 @@
                 attributes.forEach(attr => {
                     const row = document.createElement('tr');
                     row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
-                    let rowHTML = `<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${attr}</th>`;
+                    let rowHTML = `<th scope="row" class="px-6 py-4 font-medium whitespace-nowrap style="color: rgba(175, 199, 232, 1);">${attr}</th>`;
 
                     Object.keys(organicSourcesData).forEach(sourceKey => {
                         rowHTML += `<td class="px-6 py-4">${organicSourcesData[sourceKey].details[attr] || 'N/A'}</td>`;
