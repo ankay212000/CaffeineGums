@@ -625,9 +625,9 @@
                     const row = document.createElement('tr');
                     row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
                     row.innerHTML = `
-                        <td class="px-6 py-4 font-medium whitespace-nowrap hover:bg-gray-900" style="color: rgba(175, 199, 232, 1);">${item.component}</td>
-                        <td class="px-6 py-4 hover:bg-gray-900" style="color: rgba(175, 199, 232, 1);">${item.range}</td>
-                        <td class="px-6 py-4 hover:bg-gray-900" style="color: rgba(175, 199, 232, 1);">${item.func}</td>
+                        <td class="px-6 py-4 font-medium whitespace-nowrap" style="color: rgba(175, 199, 232, 1); hover:text-black;">${item.component}</td>
+                        <td class="px-6 py-4" style="color: rgba(175, 199, 232, 1); hover:text-black;">${item.range}</td>
+                        <td class="px-6 py-4" style="color: rgba(175, 199, 232, 1); hover:text-black;">${item.func}</td>
                     `;
                     tableBody.appendChild(row);
                 });
@@ -804,10 +804,10 @@
                 attributes.forEach(attr => {
                     const row = document.createElement('tr');
                     row.className = 'bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50';
-                    let rowHTML = `<th scope="row" class="px-6 py-4 font-medium whitespace-nowrap hover:bg-gray-900" style="color: rgba(175, 199, 232, 1);">${attr}</th>`;
+                    let rowHTML = `<th scope="row" class="px-6 py-4 font-medium whitespace-nowrap" style="color: rgba(175, 199, 232, 1); hover:text-black;">${attr}</th>`;
 
                     Object.keys(organicSourcesData).forEach(sourceKey => {
-                        rowHTML += `<td class="px-6 py-4 hover:bg-gray-900" style="color: rgba(175, 199, 232, 1);">${organicSourcesData[sourceKey].details[attr] || 'N/A'}</td>`;
+                        rowHTML += `<td class="px-6 py-4" style="color: rgba(175, 199, 232, 1); hover:text-black;">${organicSourcesData[sourceKey].details[attr] || 'N/A'}</td>`;
                     });
 
                     row.innerHTML = rowHTML;
